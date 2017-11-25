@@ -3,10 +3,11 @@ import {BrowserModule}                            from '@angular/platform-browse
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {Keepnote}                                 from './app.component';
 
-import {AboutPage}    from '../pages/about/about';
-import {ContactPage}  from '../pages/contact/contact';
-import {HomePage}     from '../pages/home/home';
-import {TabsPage}     from '../pages/tabs/tabs';
+import {IndexPage} from '../pages/index/index';
+// import {AboutPage}    from '../pages/about/about';
+// import {ContactPage}  from '../pages/contact/contact';
+// import {HomePage}     from '../pages/home/home';
+// import {TabsPage}     from '../pages/tabs/tabs';
 
 import {StatusBar}    from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -14,10 +15,11 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 @NgModule({
     declarations: [
         Keepnote,
-        AboutPage,
-        ContactPage,
-        HomePage,
-        TabsPage
+        IndexPage,
+        // AboutPage,
+        // ContactPage,
+        // HomePage,
+        // TabsPage
     ],
     imports: [
         BrowserModule,
@@ -26,10 +28,11 @@ import {SplashScreen} from '@ionic-native/splash-screen';
     bootstrap: [IonicApp],
     entryComponents: [
         Keepnote,
-        AboutPage,
-        ContactPage,
-        HomePage,
-        TabsPage
+        IndexPage,
+        // AboutPage,
+        // ContactPage,
+        // HomePage,
+        // TabsPage
     ],
     providers: [
         StatusBar,
