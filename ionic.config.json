@@ -1,8 +1,8 @@
 {
-  "name": "keepnote",
-  "app_id": "",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+	"name"         : "keepnote",
+	"app_id"       : "",
+	"type"         : "ionic-angular",
+	"integrations" : {
+		"cordova" : {}
+	}
 }
