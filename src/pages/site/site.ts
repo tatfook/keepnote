@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {NotePage} from '../note/note';
 
 /**
  * Generated class for the SitePage page.
@@ -10,16 +11,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-site',
-  templateUrl: 'site.html',
+    selector: 'page-site',
+    templateUrl: 'site.html',
 })
 export class SitePage {
+    userinfo: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+        this.userinfo = this.navParams.get("userinfo");
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SitePage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad SitePage');
+    }
 
+    confirm(){
+        this.navCtrl.push(NotePage,{});
+    }
 }

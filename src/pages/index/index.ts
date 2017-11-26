@@ -2,8 +2,6 @@ import {Component}                           from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {LoginPage}                           from '../login/login';
 
-declare var CodeMirror;
-
 /**
  * Generated class for the IndexPage page.
  *
@@ -24,11 +22,5 @@ export class IndexPage {
 	}
 
 	ionViewDidLoad() {
-		// var editor = document.querySelector("#editor");
-		// console.log(editor);
-
-		// CodeMirror.fromTextArea(editor, {
-		// 	lineNumbers : true
-		// });
 	}
 }

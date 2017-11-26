@@ -6,6 +6,7 @@ import {Keepnote}                                 from './app.component';
 import {IndexPage} from '../pages/index/index';
 import {LoginPage} from '../pages/login/login';
 import {SitePage}  from '../pages/site/site';
+import {NotePage}  from '../pages/note/note';
 // import {AboutPage}    from '../pages/about/about';
 // import {ContactPage}  from '../pages/contact/contact';
 // import {HomePage}     from '../pages/home/home';
@@ -13,6 +14,7 @@ import {SitePage}  from '../pages/site/site';
 
 import {StatusBar}    from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import {HttpModule}   from '@angular/http';
 
 @NgModule({
     declarations: [
@@ -20,6 +22,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
         IndexPage,
         LoginPage,
         SitePage,
+        NotePage,
         // AboutPage,
         // ContactPage,
         // HomePage,
@@ -27,7 +30,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
     ],
     imports: [
         BrowserModule,
-        IonicModule.forRoot(Keepnote)
+        IonicModule.forRoot(Keepnote),
+        HttpModule,
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -35,6 +39,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
         IndexPage,
         LoginPage,
         SitePage,
+        NotePage,
         // AboutPage,
         // ContactPage,
         // HomePage,
