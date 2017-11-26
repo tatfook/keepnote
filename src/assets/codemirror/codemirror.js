@@ -1134,14 +1134,14 @@ function getOrder(line, direction) {
 var noHandlers = []
 
 var on = function(emitter, type, f) {
-  if (emitter.addEventListener) {
-    emitter.addEventListener(type, f, false)
-  } else if (emitter.attachEvent) {
-    emitter.attachEvent("on" + type, f)
-  } else {
-    var map = emitter._handlers || (emitter._handlers = {})
-    map[type] = (map[type] || noHandlers).concat(f)
-  }
+    if (emitter.addEventListener) {
+        emitter.addEventListener(type, f, false)
+    } else if (emitter.attachEvent) {
+        emitter.attachEvent("on" + type, f)
+    } else {
+        var map = emitter._handlers || (emitter._handlers = {})
+        map[type] = (map[type] || noHandlers).concat(f)
+    }
 }
 
 function getHandlers(emitter, type) {
@@ -7761,29 +7761,31 @@ function wrappingChanged(cm) {
 // that user code is usually dealing with.
 
 function CodeMirror(place, options) {
-  var this$1 = this;
+    var this$1 = this;
 
-  if (!(this instanceof CodeMirror)) { return new CodeMirror(place, options) }
+    if (!(this instanceof CodeMirror)) {
+        return new CodeMirror(place, options)
+    }
 
-  this.options = options = options ? copyObj(options) : {}
-  // Determine effective options based on given values and defaults.
-  copyObj(defaults, options, false)
-  setGuttersForLineNumbers(options)
+    this.options = options = options ? copyObj(options) : {}
+    // Determine effective options based on given values and defaults.
+    copyObj(defaults, options, false)
+    setGuttersForLineNumbers(options)
 
-  var doc = options.value
-  if (typeof doc == "string") { doc = new Doc(doc, options.mode, null, options.lineSeparator, options.direction) }
-  this.doc = doc
+    var doc = options.value
+    if (typeof doc == "string") { doc = new Doc(doc, options.mode, null, options.lineSeparator, options.direction) }
+    this.doc = doc
 
-  var input = new CodeMirror.inputStyles[options.inputStyle](this)
-  var display = this.display = new Display(place, doc, input)
-  display.wrapper.CodeMirror = this
-  updateGutters(this)
-  themeChanged(this)
-  if (options.lineWrapping)
+    var input = new CodeMirror.inputStyles[options.inputStyle](this)
+    var display = this.display = new Display(place, doc, input)
+    display.wrapper.CodeMirror = this
+    updateGutters(this)
+    themeChanged(this)
+    if (options.lineWrapping)
     { this.display.wrapper.className += " CodeMirror-wrap" }
-  initScrollbars(this)
+    initScrollbars(this)
 
-  this.state = {
+    this.state = {
     keyMaps: [],  // stores maps added by addKeyMap
     overlays: [], // highlighting overlays, as added by addOverlay
     modeGen: 0,   // bumped when mode/overlay changes, used to invalidate highlighting info
@@ -7797,36 +7799,36 @@ function CodeMirror(place, options) {
     highlight: new Delayed(), // stores highlight worker timeout
     keySeq: null,  // Unfinished key sequence
     specialChars: null
-  }
+    }
 
-  if (options.autofocus && !mobile) { display.input.focus() }
+    if (options.autofocus && !mobile) { display.input.focus() }
 
-  // Override magic textarea content restore that IE sometimes does
-  // on our hidden textarea on reload
-  if (ie && ie_version < 11) { setTimeout(function () { return this$1.display.input.reset(true); }, 20) }
+    // Override magic textarea content restore that IE sometimes does
+    // on our hidden textarea on reload
+    if (ie && ie_version < 11) { setTimeout(function () { return this$1.display.input.reset(true); }, 20) }
 
-  registerEventHandlers(this)
-  ensureGlobalHandlers()
+    registerEventHandlers(this)
+    ensureGlobalHandlers()
 
-  startOperation(this)
-  this.curOp.forceUpdate = true
-  attachDoc(this, doc)
+    startOperation(this)
+    this.curOp.forceUpdate = true
+    attachDoc(this, doc)
 
-  if ((options.autofocus && !mobile) || this.hasFocus())
+    if ((options.autofocus && !mobile) || this.hasFocus())
     { setTimeout(bind(onFocus, this), 20) }
-  else
+    else
     { onBlur(this) }
 
-  for (var opt in optionHandlers) { if (optionHandlers.hasOwnProperty(opt))
+    for (var opt in optionHandlers) { if (optionHandlers.hasOwnProperty(opt))
     { optionHandlers[opt](this$1, options[opt], Init) } }
-  maybeUpdateLineNumberWidth(this)
-  if (options.finishInit) { options.finishInit(this) }
-  for (var i = 0; i < initHooks.length; ++i) { initHooks[i](this$1) }
-  endOperation(this)
-  // Suppress optimizelegibility in Webkit, since it breaks text
-  // measuring on line wrapping boundaries.
-  if (webkit && options.lineWrapping &&
-      getComputedStyle(display.lineDiv).textRendering == "optimizelegibility")
+    maybeUpdateLineNumberWidth(this)
+    if (options.finishInit) { options.finishInit(this) }
+    for (var i = 0; i < initHooks.length; ++i) { initHooks[i](this$1) }
+    endOperation(this)
+    // Suppress optimizelegibility in Webkit, since it breaks text
+    // measuring on line wrapping boundaries.
+    if (webkit && options.lineWrapping &&
+        getComputedStyle(display.lineDiv).textRendering == "optimizelegibility")
     { display.lineDiv.style.textRendering = "auto" }
 }
 
@@ -9503,127 +9505,161 @@ TextareaInput.prototype.onContextMenu = function (e) {
 };
 
 TextareaInput.prototype.readOnlyChanged = function (val) {
-  if (!val) { this.reset() }
-  this.textarea.disabled = val == "nocursor"
+    if (!val) {
+        this.reset();
+    }
+
+    this.textarea.disabled = val == "nocursor"
 };
 
-TextareaInput.prototype.setUneditable = function () {};
-
-TextareaInput.prototype.needsContentAttribute = false
+TextareaInput.prototype.setUneditable         = function () {};
+TextareaInput.prototype.needsContentAttribute = false;
 
 function fromTextArea(textarea, options) {
-  options = options ? copyObj(options) : {}
-  options.value = textarea.value
-  if (!options.tabindex && textarea.tabIndex)
-    { options.tabindex = textarea.tabIndex }
-  if (!options.placeholder && textarea.placeholder)
-    { options.placeholder = textarea.placeholder }
-  // Set autofocus to true if this textarea is focused, or if it has
-  // autofocus and no other element is focused.
-  if (options.autofocus == null) {
-    var hasFocus = activeElt()
-    options.autofocus = hasFocus == textarea ||
-      textarea.getAttribute("autofocus") != null && hasFocus == document.body
-  }
+    options       = options ? copyObj(options) : {};
+    options.value = textarea.value;
 
-  function save() {textarea.value = cm.getValue()}
+    if (!options.tabindex && textarea.tabIndex)
+    {
+        options.tabindex = textarea.tabIndex 
+    }
 
-  var realSubmit
-  if (textarea.form) {
-    on(textarea.form, "submit", save)
-    // Deplorable hack to make the submit method do the right thing.
-    if (!options.leaveSubmitMethodAlone) {
-      var form = textarea.form
-      realSubmit = form.submit
-      try {
-        var wrappedSubmit = form.submit = function () {
-          save()
-          form.submit = realSubmit
-          form.submit()
-          form.submit = wrappedSubmit
+    if (!options.placeholder && textarea.placeholder)
+    {
+        options.placeholder = textarea.placeholder
+    }
+
+    // Set autofocus to true if this textarea is focused, or if it has
+    // autofocus and no other element is focused.
+
+    if (options.autofocus == null) {
+        var hasFocus = activeElt();
+        options.autofocus = hasFocus == textarea || textarea.getAttribute("autofocus") != null && hasFocus == document.body
+    }
+
+    function save()
+    {
+        textarea.value = cm.getValue();
+    }
+
+    var realSubmit;
+
+    if (textarea.form) {
+        on(textarea.form, "submit", save);
+
+        // Deplorable hack to make the submit method do the right thing.
+        if (!options.leaveSubmitMethodAlone) {
+            var form   = textarea.form
+            realSubmit = form.submit
+
+            try {
+                var wrappedSubmit = form.submit = function () {
+                    save();
+                    form.submit = realSubmit;
+                    form.submit();
+                    form.submit = wrappedSubmit;
+                }
+            } catch(e) {}
         }
-      } catch(e) {}
     }
-  }
 
-  options.finishInit = function (cm) {
-    cm.save = save
-    cm.getTextArea = function () { return textarea; }
-    cm.toTextArea = function () {
-      cm.toTextArea = isNaN // Prevent this from being ran twice
-      save()
-      textarea.parentNode.removeChild(cm.getWrapperElement())
-      textarea.style.display = ""
-      if (textarea.form) {
-        off(textarea.form, "submit", save)
-        if (typeof textarea.form.submit == "function")
-          { textarea.form.submit = realSubmit }
-      }
+    options.finishInit = function (cm) {
+        cm.save = save;
+
+        cm.getTextArea = function () {
+            return textarea;
+        }
+
+        cm.toTextArea = function () {
+            cm.toTextArea = isNaN; // Prevent this from being ran twice
+
+            save();
+
+            textarea.parentNode.removeChild(cm.getWrapperElement());
+            textarea.style.display = "";
+
+            if (textarea.form) {
+                off(textarea.form, "submit", save);
+
+                if (typeof textarea.form.submit == "function"){
+                    textarea.form.submit = realSubmit
+                }
+            }
+        }
     }
-  }
 
-  textarea.style.display = "none"
-  var cm = CodeMirror(function (node) { return textarea.parentNode.insertBefore(node, textarea.nextSibling); },
-    options)
-  return cm
+    textarea.style.display = "none";
+    
+    var cm = CodeMirror(function (node) {
+        return textarea.parentNode.insertBefore(node, textarea.nextSibling); 
+    }, options);
+
+    return cm;
 }
 
 function addLegacyProps(CodeMirror) {
-  CodeMirror.off = off
-  CodeMirror.on = on
-  CodeMirror.wheelEventPixels = wheelEventPixels
-  CodeMirror.Doc = Doc
-  CodeMirror.splitLines = splitLinesAuto
-  CodeMirror.countColumn = countColumn
-  CodeMirror.findColumn = findColumn
-  CodeMirror.isWordChar = isWordCharBasic
-  CodeMirror.Pass = Pass
-  CodeMirror.signal = signal
-  CodeMirror.Line = Line
-  CodeMirror.changeEnd = changeEnd
-  CodeMirror.scrollbarModel = scrollbarModel
-  CodeMirror.Pos = Pos
-  CodeMirror.cmpPos = cmp
-  CodeMirror.modes = modes
-  CodeMirror.mimeModes = mimeModes
-  CodeMirror.resolveMode = resolveMode
-  CodeMirror.getMode = getMode
-  CodeMirror.modeExtensions = modeExtensions
-  CodeMirror.extendMode = extendMode
-  CodeMirror.copyState = copyState
-  CodeMirror.startState = startState
-  CodeMirror.innerMode = innerMode
-  CodeMirror.commands = commands
-  CodeMirror.keyMap = keyMap
-  CodeMirror.keyName = keyName
-  CodeMirror.isModifierKey = isModifierKey
-  CodeMirror.lookupKey = lookupKey
-  CodeMirror.normalizeKeyMap = normalizeKeyMap
-  CodeMirror.StringStream = StringStream
-  CodeMirror.SharedTextMarker = SharedTextMarker
-  CodeMirror.TextMarker = TextMarker
-  CodeMirror.LineWidget = LineWidget
-  CodeMirror.e_preventDefault = e_preventDefault
-  CodeMirror.e_stopPropagation = e_stopPropagation
-  CodeMirror.e_stop = e_stop
-  CodeMirror.addClass = addClass
-  CodeMirror.contains = contains
-  CodeMirror.rmClass = rmClass
-  CodeMirror.keyNames = keyNames
+    CodeMirror.off               = off;
+    CodeMirror.on                = on;
+    CodeMirror.wheelEventPixels  = wheelEventPixels;
+    CodeMirror.Doc               = Doc;
+    CodeMirror.splitLines        = splitLinesAuto
+    CodeMirror.countColumn       = countColumn
+    CodeMirror.findColumn        = findColumn
+    CodeMirror.isWordChar        = isWordCharBasic
+    CodeMirror.Pass              = Pass
+    CodeMirror.signal            = signal
+    CodeMirror.Line              = Line
+    CodeMirror.changeEnd         = changeEnd
+    CodeMirror.scrollbarModel    = scrollbarModel
+    CodeMirror.Pos               = Pos
+    CodeMirror.cmpPos            = cmp
+    CodeMirror.modes             = modes
+    CodeMirror.mimeModes         = mimeModes
+    CodeMirror.resolveMode       = resolveMode
+    CodeMirror.getMode           = getMode
+    CodeMirror.modeExtensions    = modeExtensions
+    CodeMirror.extendMode        = extendMode
+    CodeMirror.copyState         = copyState
+    CodeMirror.startState        = startState
+    CodeMirror.innerMode         = innerMode
+    CodeMirror.commands          = commands
+    CodeMirror.keyMap            = keyMap
+    CodeMirror.keyName           = keyName
+    CodeMirror.isModifierKey     = isModifierKey
+    CodeMirror.lookupKey         = lookupKey
+    CodeMirror.normalizeKeyMap   = normalizeKeyMap
+    CodeMirror.StringStream      = StringStream
+    CodeMirror.SharedTextMarker  = SharedTextMarker
+    CodeMirror.TextMarker        = TextMarker
+    CodeMirror.LineWidget        = LineWidget
+    CodeMirror.e_preventDefault  = e_preventDefault
+    CodeMirror.e_stopPropagation = e_stopPropagation
+    CodeMirror.e_stop            = e_stop
+    CodeMirror.addClass          = addClass
+    CodeMirror.contains          = contains
+    CodeMirror.rmClass           = rmClass
+    CodeMirror.keyNames          = keyNames
 }
 
 // EDITOR CONSTRUCTOR
 
-defineOptions(CodeMirror)
+defineOptions(CodeMirror);
 
-addEditorMethods(CodeMirror)
+addEditorMethods(CodeMirror);
 
 // Set up methods on CodeMirror's prototype to redirect to the editor's document.
-var dontDelegate = "iter insert remove copy getEditor constructor".split(" ")
-for (var prop in Doc.prototype) { if (Doc.prototype.hasOwnProperty(prop) && indexOf(dontDelegate, prop) < 0)
-  { CodeMirror.prototype[prop] = (function(method) {
-    return function() {return method.apply(this.doc, arguments)}
-  })(Doc.prototype[prop]) } }
+var dontDelegate = "iter insert remove copy getEditor constructor".split(" ");
+
+for (var prop in Doc.prototype) {
+    if (Doc.prototype.hasOwnProperty(prop) && indexOf(dontDelegate, prop) < 0)
+    {
+        CodeMirror.prototype[prop] = (function(method) {
+            return function() {
+                return method.apply(this.doc, arguments)
+            }
+        })(Doc.prototype[prop]);
+    }
+}
 
 eventMixin(Doc)
 
@@ -9637,30 +9673,40 @@ CodeMirror.inputStyles = {"textarea": TextareaInput, "contenteditable": ContentE
 // used by (legacy) mechanisms like loadmode.js to automatically
 // load a mode. (Preferred mechanism is the require/define calls.)
 CodeMirror.defineMode = function(name/*, mode, …*/) {
-  if (!CodeMirror.defaults.mode && name != "null") { CodeMirror.defaults.mode = name }
-  defineMode.apply(this, arguments)
+    if (!CodeMirror.defaults.mode && name != "null")
+    {
+        CodeMirror.defaults.mode = name;
+    }
+
+    defineMode.apply(this, arguments);
 }
 
 CodeMirror.defineMIME = defineMIME
 
 // Minimal default mode.
-CodeMirror.defineMode("null", function () { return ({token: function (stream) { return stream.skipToEnd(); }}); })
-CodeMirror.defineMIME("text/plain", "null")
+CodeMirror.defineMode("null", function () {
+    return ({token: function (stream) {
+        return stream.skipToEnd();
+    }});
+});
+
+CodeMirror.defineMIME("text/plain", "null");
 
 // EXTENSIONS
 
 CodeMirror.defineExtension = function (name, func) {
-  CodeMirror.prototype[name] = func
+  CodeMirror.prototype[name] = func;
 }
+
 CodeMirror.defineDocExtension = function (name, func) {
-  Doc.prototype[name] = func
+  Doc.prototype[name] = func;
 }
 
 CodeMirror.fromTextArea = fromTextArea
 
-addLegacyProps(CodeMirror)
+addLegacyProps(CodeMirror);
 
-CodeMirror.version = "5.32.0"
+CodeMirror.version = "5.32.0";
 
 return CodeMirror;
 

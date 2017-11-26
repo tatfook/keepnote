@@ -1,5 +1,6 @@
 import {Component}                           from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {LoginPage}                           from '../login/login';
 
 declare var CodeMirror;
 
@@ -19,15 +20,15 @@ declare var CodeMirror;
 
 export class IndexPage {
 	constructor(public navCtrl: NavController, public navParams: NavParams) {
-		console.log(CodeMirror);
+		this.navCtrl.push(LoginPage, {});
 	}
 
 	ionViewDidLoad() {
-		var editor = document.querySelector("#editor");
-		console.log(editor);
+		// var editor = document.querySelector("#editor");
+		// console.log(editor);
 
-		CodeMirror.fromTextArea(editor, {
-			lineNumbers : true
-		});
+		// CodeMirror.fromTextArea(editor, {
+		// 	lineNumbers : true
+		// });
 	}
 }

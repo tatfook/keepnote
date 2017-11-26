@@ -4,6 +4,8 @@ import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {Keepnote}                                 from './app.component';
 
 import {IndexPage} from '../pages/index/index';
+import {LoginPage} from '../pages/login/login';
+import {SitePage}  from '../pages/site/site';
 // import {AboutPage}    from '../pages/about/about';
 // import {ContactPage}  from '../pages/contact/contact';
 // import {HomePage}     from '../pages/home/home';
@@ -16,6 +18,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
     declarations: [
         Keepnote,
         IndexPage,
+        LoginPage,
+        SitePage,
         // AboutPage,
         // ContactPage,
         // HomePage,
@@ -29,6 +33,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
     entryComponents: [
         Keepnote,
         IndexPage,
+        LoginPage,
+        SitePage,
         // AboutPage,
         // ContactPage,
         // HomePage,

@@ -1,0 +1,19 @@
+page-login {
+    ion-content{
+        background-image: url("../assets/imgs/login-bg.png");
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: bottom;
+    }
+
+    .logo{
+        display: block;
+        margin: 0 auto;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    ion-label, ion-input .text-input{
+        text-align : center;
+    }
+}
