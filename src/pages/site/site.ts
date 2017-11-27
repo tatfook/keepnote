@@ -22,7 +22,7 @@ export class SitePage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad SitePage');
+        //console.log('ionViewDidLoad SitePage');
     }
 
     confirm(){

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {Keyboard}  from '@ionic-native/keyboard';
 
 declare var CodeMirror;
 
@@ -18,8 +19,20 @@ declare var CodeMirror;
 })
 
 export class NotePage {
+    content: object = {};
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private keyboard: Keyboard) {
+        let noteInstance = this;
+
+        if(this.platform.is("ios")){
+            window.addEventListener('native.keyboardshow', function(e){
+                noteInstance.iOSSetHeight(e, noteInstance);
+            });
+        
+            window.addEventListener("native.keyboardhide", function(e){
+                noteInstance.iOSResetHeight(e, noteInstance);
+            });
+        }
     }
 
     ionViewDidLoad() {
@@ -28,16 +41,15 @@ export class NotePage {
         CodeMirror.fromTextArea(editor, {
             lineNumbers : true
         });
+    }
 
-        this.platform.platforms();
+    iOSSetHeight(e: any, noteInstance: any){
+        let content = window.screen.height - e.keyboardHeight;
+        noteInstance.content = {"height" : content + "px"};
+    }
 
-        window.addEventListener("native.keyboardshow", function(e){
-        //console.log(e.keyboardHeight);
-        });
-    
-        window.addEventListener("native.keyboardhide", function(e){
-        console.log(222222);
-        })
+    iOSResetHeight(e: any, noteInstance: any){
+        noteInstance.content = {};
     }
 
 }

@@ -32,7 +32,7 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad LoginPage');
+        //console.log('ionViewDidLoad LoginPage');
     }
 
     login(){
@@ -46,7 +46,7 @@ export class LoginPage {
         this.http.post(this.api + "/user/login", {username : this.username, password : this.password})
         .map(res => res.json())
         .subscribe(data => {
-            console.log(data);
+            //console.log(data);
 
             if(data.error.id == 0){
                 this.navCtrl.push(SitePage, {userinfo : data.data});

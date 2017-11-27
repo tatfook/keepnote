@@ -15,6 +15,7 @@ import {NotePage}  from '../pages/note/note';
 import {StatusBar}    from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HttpModule}   from '@angular/http';
+import {Keyboard}     from '@ionic-native/keyboard';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {HttpModule}   from '@angular/http';
         {
             provide  : ErrorHandler,
             useClass : IonicErrorHandler
-        }
+        },
+        Keyboard
     ]
 })
 
