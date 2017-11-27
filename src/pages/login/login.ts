@@ -5,6 +5,7 @@ import {Observable}                          from 'rxjs/Observable';
 import {Http}                                from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import {ApiProvider}                         from '../../providers/api/api';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,13 +22,12 @@ import 'rxjs/add/operator/do';
 })
 
 export class LoginPage {
-    api      : string = "http://localhost:8099/api/wiki/models";
     title    : any = "登录";
     username : string = "testv2";
     password : string = "12345678";
     request  : Observable<any>;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http) {
+    constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,private apiProvide: ApiProvider) {
         //this.abc = navParams.get("abc");
     }
 
@@ -43,7 +43,7 @@ export class LoginPage {
             return;
         }
 
-        this.http.post(this.api + "/user/login", {username : this.username, password : this.password})
+        this.http.post(this.apiProvide.getApiBaseUrl() + "/user/login", {username : this.username, password : this.password})
         .map(res => res.json())
         .subscribe(data => {
             //console.log(data);

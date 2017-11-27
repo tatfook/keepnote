@@ -16,6 +16,8 @@ import {StatusBar}    from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HttpModule}   from '@angular/http';
 import {Keyboard}     from '@ionic-native/keyboard';
+//import {HttpClient}   from '@angular/common/http';
+import {ApiProvider}  from '../providers/api/api';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,9 @@ import {Keyboard}     from '@ionic-native/keyboard';
             provide  : ErrorHandler,
             useClass : IonicErrorHandler
         },
-        Keyboard
+        Keyboard,
+        //HttpClient,
+        ApiProvider
     ]
 })
 
