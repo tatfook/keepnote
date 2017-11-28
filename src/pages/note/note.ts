@@ -39,7 +39,8 @@ export class NotePage {
         var editor = document.querySelector("#editor");
 
         CodeMirror.fromTextArea(editor, {
-            lineNumbers : true
+            lineNumbers : true,
+            placeholder : "tttttttt"
         });
     }
 
