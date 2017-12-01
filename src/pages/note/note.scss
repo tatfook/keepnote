@@ -3,12 +3,8 @@ page-note {
         height: 100%;
     }
 
-    textarea {
-        visibility: hidden;
-    }
-
-    .ios-device {
-        
+    .CodeMirror-cursors {
+        display : none;
     }
 
     .CodeMirror {
