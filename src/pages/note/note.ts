@@ -40,7 +40,7 @@ export class NotePage {
 
         CodeMirror.fromTextArea(editor, {
             lineNumbers : true,
-            placeholder : "tttttttt"
+            inputStyle  : "textarea",
         });
     }
 

@@ -7727,16 +7727,15 @@
         var doc = options.value
         if (typeof doc == "string") { doc = new Doc(doc, options.mode, null, options.lineSeparator, options.direction) }
         this.doc = doc
-
+        
         var input = new CodeMirror.inputStyles[options.inputStyle](this)
         var display = this.display = new Display(place, doc, input)
-        
         display.wrapper.CodeMirror = this
         updateGutters(this)
         themeChanged(this)
         if (options.lineWrapping) { this.display.wrapper.className += " CodeMirror-wrap" }
         initScrollbars(this)
-
+        
         this.state = {
             keyMaps: [],  // stores maps added by addKeyMap
             overlays: [], // highlighting overlays, as added by addOverlay

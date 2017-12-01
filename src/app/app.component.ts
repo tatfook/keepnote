@@ -4,13 +4,14 @@ import {StatusBar}    from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
 import {IndexPage}     from '../pages/index/index';
+import {NotePage}      from '../pages/note/note';
 
 @Component({
   templateUrl: 'app.html'
 })
 
 export class Keepnote {
-    rootPage:any = IndexPage;
+    rootPage:any = NotePage;
 
     constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
         platform.ready().then(() => {
