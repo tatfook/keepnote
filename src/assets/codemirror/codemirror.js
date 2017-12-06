@@ -9124,6 +9124,7 @@
         // The semihidden textarea that is focused when the editor is
         // focused, and receives input.
         var te = this.textarea = div.firstChild
+        te.id="textarea-input"
         display.wrapper.insertBefore(div, display.wrapper.firstChild)
 
         // Needed to hide big blue blinking cursor on Mobile Safari (doesn't seem to work in iOS 8 anymore)

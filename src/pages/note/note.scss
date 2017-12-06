@@ -1,13 +1,9 @@
 page-note {
-    #editor{
-        height: 100%;
-    }
-
-    .CodeMirror-cursors {
-        display : none;
-    }
-
     .CodeMirror {
         height: 100%;
+    }
+
+    #textarea-input{
+        opacity: 0;
     }
 }
