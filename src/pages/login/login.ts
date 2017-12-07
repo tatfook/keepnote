@@ -1,10 +1,6 @@
 import {Component}                           from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SitePage}                            from '../site/site';
-import {Observable}                          from 'rxjs/Observable';
-import {Http}                                from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
 import {ApiProvider}                         from '../../providers/api/api';
 
 /**
@@ -23,11 +19,10 @@ import {ApiProvider}                         from '../../providers/api/api';
 
 export class LoginPage {
     title    : any = "登录";
-    username : string = "testv2";
-    password : string = "12345678";
-    request  : Observable<any>;
+    username : string;
+    password : string;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,private apiProvide: ApiProvider) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private apiProvide: ApiProvider) {
         //this.abc = navParams.get("abc");
     }
 
@@ -36,23 +31,24 @@ export class LoginPage {
     }
 
     login(){
-        // console.log(this.username);
-        // console.log(this.password);
         if(!this.username || !this.password){
             alert("用户名密码必填");
             return;
         }
 
-        this.http.post(this.apiProvide.getApiBaseUrl() + "/user/login", {username : this.username, password : this.password})
-        .map(res => res.json())
-        .subscribe(data => {
-            //console.log(data);
+        let params: object = {
+            username: this.username,
+            password: this.password
+        }
 
-            if(data.error.id == 0){
+        this.apiProvide.post(this.apiProvide.getKeepworkApiBaseUrl() + "user/login", params, (data) => {
+            if(data && data.error && data.error.id == 0){
+                this.apiProvide.setData("isLogin", "true");
                 this.navCtrl.push(SitePage, {userinfo : data.data});
             }
         })
 
+        
         // console.log(this.request);
         // this.request.map(res => console.log(res));
     }

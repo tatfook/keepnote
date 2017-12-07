@@ -14,7 +14,7 @@
 
 <ion-content>
     <img class="logo" src="assets/icon/logo.png" alt="">
-    <ion-list>
+    <ion-list class="login-container">
         <ion-item>
             <ion-label stacked>Keepwork账号</ion-label>
             <ion-input type="text" [(ngModel)]="username"></ion-input>
@@ -25,9 +25,9 @@
         </ion-item>
     </ion-list>
     <p>
-        <button (click)="login()" ion-button full>登录</button>
+        <button class="login-button login" (click)="login()" ion-button full>登录</button>
     </p>
     <p>
-        <button (click)="reg()" ion-button color="light" full>去Keepwork注册</button>
+        <button class="login-button register" (click)="reg()" ion-button color="light" full>去Keepwork注册</button>
     </p>
 </ion-content>

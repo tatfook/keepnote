@@ -1,5 +1,9 @@
 //import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Observable}                          from 'rxjs/Observable';
+import {Http}                                from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 /*
   Generated class for the ApiProvider provider.
@@ -10,13 +14,39 @@ import {Injectable} from '@angular/core';
 @Injectable()
 
 export class ApiProvider {
-    api: string = "http://keepwork.com/api/wiki/models";
+    keepworkApi: string = "http://keepwork.com/api/wiki/models/";
+    storage: any;
+    request: Observable<any>;
 
-    constructor() {
+    constructor(public http: Http) {
+        if(typeof window.localStorage == "object"){
+            this.storage = window.localStorage;
+        }
         
     }
     
-    getApiBaseUrl(){
-        return this.api;
+    public getKeepworkApiBaseUrl(): string{
+        return this.keepworkApi;
     }
+
+    public setData(key: string, value: string): any{
+        if(this.storage){
+            this.storage.setItem(key, value);
+        }
+    }
+
+    public getData(key: string): string{
+        if(this.storage){
+            return this.storage.getItem(key);
+        }
+    }
+
+    public post(url:string, params: object, callback: Function): any{
+        this.http.post(url, params)
+        .map(res => res.json())
+        .subscribe(data => {
+            callback(data);
+        })
+    }
+
 }

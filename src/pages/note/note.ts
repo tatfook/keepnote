@@ -1,7 +1,10 @@
-import {Component} from '@angular/core';
+import {Component}                                     from '@angular/core';
 import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
-import {Keyboard}     from '@ionic-native/keyboard';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser';
+import {Keyboard}                                      from '@ionic-native/keyboard';
+// import {InAppBrowser, InAppBrowserOptions}             from '@ionic-native/in-app-browser';
+import {ApiProvider}                                   from '../../providers/api/api';
+import {LoginPage}                                     from '../../pages/login/login';
+import {SitePage}                                      from '../../pages/site/site';
 
 declare var CodeMirror;
 
@@ -23,9 +26,10 @@ export class NotePage {
     content: object = {};
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private platform: Platform, private keyboard: Keyboard, private inAppBrowser: InAppBrowser) {
+                private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider) {
 
-        let iab = this.inAppBrowser;
+        //let iab = this.inAppBrowser;
+
         platform.ready().then(() => {
             //iab.create('./assets/codemirror/codemirror.html','_blank');
         })
@@ -75,6 +79,14 @@ export class NotePage {
             });
         }
     }
+
+	ionViewWillEnter(){
+		if(this.apiProvider.getData("isLogin") == "true"){
+			this.navCtrl.push(SitePage, {});
+		}else{
+			this.navCtrl.push(LoginPage, {});
+		}
+	}
 
     iOSSetHeight(e: any, noteInstance: any){
         let content = window.screen.height - e.keyboardHeight;

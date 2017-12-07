@@ -1,3 +1,5 @@
+$theme: #118ac0;
+
 page-login {
     ion-content{
         background-image: url("../assets/imgs/login-bg.png");
@@ -6,14 +8,48 @@ page-login {
         background-position-y: bottom;
     }
 
+    .item-md{
+        background: none;
+    }
+
+    .login-container{
+        width: 90%;
+        margin: 50px auto;
+    }
+
+    .login-button{
+        width: 90%;
+        height: 40px;
+        margin: 0 auto;
+        font-size: 16px;
+        border-radius: 18px;
+    }
+
+    .login{
+        background-color: $theme;
+    }
+
+    .register{
+        border: 1px solid $theme;
+        color: $theme;
+        background-color: white;
+    }
+
     .logo{
         display: block;
         margin: 0 auto;
+        width: 80px;
+        height: 80px;
         margin-top: 60px;
         margin-bottom: 60px;
     }
 
+    ion-item{
+        background: none;
+    }
+
     ion-label, ion-input .text-input{
-        text-align : center;
+        text-align: center;
+        background: none;
     }
 }
