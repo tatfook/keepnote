@@ -11,14 +11,10 @@
         </ion-list-header>
         <div class="site-list">
             <div class="site-list-content">
-                <ion-item>/testv2/tttt</ion-item>
-                <ion-item>/testv2/aaaa</ion-item>
-                <ion-item>/testv2/bbbb</ion-item>
-                <ion-item>/testv2/bbbb</ion-item>
-                <ion-item>/testv2/bbbb</ion-item>
-                <ion-item>/testv2/bbbb</ion-item>
-                <ion-item>/testv2/bbbb</ion-item>
-                <ion-item>/testv2/bbbb</ion-item>
+                <ion-item class="site-item" (click)="selectItem(i, 'mine')" 
+                          [ngClass]="{'active': i == selectIndex, 'active-next': selectIndex || selectIndex == 0 ? i == (selectIndex + 1) : false}" 
+                          *ngFor="let item of items; let i = index">{{item}}</ion-item>
+                <ion-item *ngIf="isLast" class="active-next"></ion-item>
             </div>
             <div class="more"></div>
         </div>
@@ -28,9 +24,13 @@
             参与的网站：
         </ion-list-header>
         <div class="site-list">
-            <ion-item>/testv2/tttt</ion-item>
-            <ion-item>/testv2/aaaa</ion-item>
-            <ion-item>/testv2/bbbb</ion-item>
+            <div class="site-list-content">
+                <ion-item class="site-item" (click)="selectItem(i, 'theirs')" 
+                          [ngClass]="{'active': i == selectIndex, 'active-next': selectIndex || selectIndex == 0 ? i == (selectIndex + 1) : false}" 
+                          *ngFor="let item of items; let i = index">{{item}}</ion-item>
+                <ion-item *ngIf="isLast" class="active-next"></ion-item>
+            </div>
+            <div class="more"></div>
         </div>
     </ion-list>
     <button (click)="confirm()" class="confirm" ion-button>确定</button>
