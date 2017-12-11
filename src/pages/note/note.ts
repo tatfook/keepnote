@@ -48,8 +48,23 @@ export class NotePage {
     }
 
     ionViewDidLoad() {
-        let editor:HTMLElement = <HTMLElement>document.querySelector("#editor");
+    }
 
+	ionViewWillEnter(){
+		if(this.apiProvider.getData("isLogin") == "true"){
+            if(!this.apiProvider.getData("currentSite")){
+                this.navCtrl.push(SitePage, {});
+            }
+		}else{
+			this.navCtrl.push(LoginPage, {});
+        }
+        
+        this.initCodeMirror();
+	}
+
+    initCodeMirror(){
+        let editor:HTMLElement = <HTMLElement>document.querySelector("#editor");
+        
         if(this.platform.is("ios")){
             editor.style.width  = "100%";
             editor.style.height = "100%";
@@ -79,14 +94,6 @@ export class NotePage {
             });
         }
     }
-
-	ionViewWillEnter(){
-		if(this.apiProvider.getData("isLogin") == "true"){
-			this.navCtrl.push(SitePage, {});
-		}else{
-			this.navCtrl.push(LoginPage, {});
-		}
-	}
 
     iOSSetHeight(e: any, noteInstance: any){
         let content = window.screen.height - e.keyboardHeight;

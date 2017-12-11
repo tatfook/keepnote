@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content (click)="setAllUnselected(false)" padding>
-    <ion-list>
+    <ion-list *ngIf="items.mine.length > 0">
         <ion-list-header class="site-type">
             创建的网站：
         </ion-list-header>
@@ -13,13 +13,13 @@
             <div class="site-list-content">
                 <ion-item class="site-item" (click)="selectItem($event, i, 'mine')" 
                           [ngClass]="{'active': i == selectIndex.mine, 'active-next': selectIndex.mine || selectIndex.mine == 0 ? i == (selectIndex.mine + 1) : false}" 
-                          *ngFor="let item of items; let i = index">{{item}}</ion-item>
+                          *ngFor="let item of items.mine; let i = index">/{{item.username}}/{{item.sitename}}</ion-item>
                 <ion-item *ngIf="isLast.mine" class="active-next"></ion-item>
             </div>
             <div class="more"></div>
         </div>
     </ion-list>
-    <ion-list>
+    <ion-list *ngIf="items.theirs.length > 0">
         <ion-list-header class="site-type">
             参与的网站：
         </ion-list-header>
@@ -27,11 +27,11 @@
             <div class="site-list-content">
                 <ion-item class="site-item" (click)="selectItem($event, i, 'theirs')" 
                           [ngClass]="{'active': i == selectIndex.theirs, 'active-next': selectIndex.theirs || selectIndex.theirs == 0 ? i == (selectIndex.theirs + 1) : false}" 
-                          *ngFor="let item of items; let i = index">{{item}}</ion-item>
+                          *ngFor="let item of items.theirs; let i = index">{{item}}</ion-item>
                 <ion-item *ngIf="isLast.theirs" class="active-next"></ion-item>
             </div>
             <div class="more"></div>
         </div>
     </ion-list>
-    <button (click)="confirm()" class="confirm" ion-button>确定</button>
+    <button (click)="confirm()" [disabled]="selectIndex.mine == null && selectIndex.theirs == null" class="confirm" ion-button>确定</button>
 </ion-content>

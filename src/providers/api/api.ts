@@ -22,7 +22,6 @@ export class ApiProvider {
         if(typeof window.localStorage == "object"){
             this.storage = window.localStorage;
         }
-        
     }
     
     public getKeepworkApiBaseUrl(): string{

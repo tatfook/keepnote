@@ -44,7 +44,8 @@ export class LoginPage {
         this.apiProvide.post(this.apiProvide.getKeepworkApiBaseUrl() + "user/login", params, (data) => {
             if(data && data.error && data.error.id == 0){
                 this.apiProvide.setData("isLogin", "true");
-                this.navCtrl.push(SitePage, {userinfo : data.data});
+                this.apiProvide.setData("userinfo", JSON.stringify(data.data));
+                this.navCtrl.push(SitePage, {});
             }
         })
 

@@ -100,5 +100,12 @@ page-site {
             background-color: #57a8ff;
             padding: 0px 60px;
         }
+
+        .confirm[disabled]{
+            background-color: #dddddd;
+            opacity: 1;
+            box-shadow: none;
+            color: #bbbbbb;
+        }
     }
 }

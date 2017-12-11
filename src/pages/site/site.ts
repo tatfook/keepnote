@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {NotePage} from '../note/note';
+import {Component}   from '@angular/core';
+import {NotePage}    from '../note/note';
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the SitePage page.
@@ -18,26 +19,38 @@ import {NotePage} from '../note/note';
 
 export class SitePage {
     userinfo: any;
-    items: Array<any>;
+    items: any          = {};
+    isLast: any         = {};
+    isSetListener: any  = {};
+    selectIndex: any    = {};
+    list: any           = {};
+    currentSite: any    = {};
+    canExecute: boolean = true;
 
-    isLast: any        = {};
-    isSetListener: any = {};
-    selectIndex: any   = {};
-    list: any          = {};
-    canExecute:boolean = true;
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                public apiProvider: ApiProvider) {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
-        this.userinfo = this.navParams.get("userinfo");
+        let userinfoStr: string = apiProvider.getData("userinfo");
+        let userinfo: any  = {};
 
-        this.items = new Array<any>();
-        this.items.push("/testv2/tttt");
-        this.items.push("/testv2/tttt1");
-        this.items.push("/testv2/tttt2");
-        this.items.push("/testv2/tttt3");
-        this.items.push("/testv2/tttt4");
-        this.items.push("/testv2/tttt5");
-        this.items.push("/testv2/tttt6");
-        this.items.push("/testv2/tttt7");
+        try {
+            userinfo = JSON.parse(userinfoStr);
+        } catch (error) {
+            
+        }
+        
+        this.items.mine   = [];
+        this.items.theirs = [];
+
+        console.log(this.items);
+
+        apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_data_source/getByUsername", {username: userinfo.userinfo.username},(data) => {
+            this.items.mine = data.data;
+        });
+
+        apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_user/getSiteListByMemberName", {memberName: userinfo.userinfo.username}, (data) => {
+            this.items.theirs = data.data;
+        });
 
         this.selectIndex.mine   = null;
         this.selectIndex.theirs = null;
@@ -46,6 +59,8 @@ export class SitePage {
     ionViewDidLoad() {}
 
     confirm(){
+        this.apiProvider.setData("currentSite", JSON.stringify(this.currentSite));
+
         this.navCtrl.push(NotePage,{});
     }
 
@@ -55,7 +70,7 @@ export class SitePage {
         if(type == "mine"){
             this.selectIndex.mine = index;
 
-            if(index == this.items.length - 1){
+            if(index == this.items.mine.length - 1){
                 this.isLast.mine = true;
             }else{
                 this.isLast.mine = false;
@@ -63,7 +78,7 @@ export class SitePage {
         }else if(type == "theirs"){
             this.selectIndex.theirs = index;
 
-            if(index == this.items.length - 1){
+            if(index == this.items.theirs.length - 1){
                 this.isLast.theirs = true;
             }else{
                 this.isLast.theirs = false;
@@ -83,6 +98,8 @@ export class SitePage {
                 }
             }
         });
+
+        this.setCurrentSite(index, type);
     }
 
     setAllItemMarginTopNull(element: HTMLElement){
@@ -104,11 +121,11 @@ export class SitePage {
             element.addEventListener("scroll", () => {
                 that.setAllItemMarginTopNull(element);
     
-                if(that.selectIndex.mine == that.items.length - 1){
+                if(that.selectIndex.mine == that.items.mine.length - 1){
                     that.isLast.mine = false;
                 }
 
-                if(that.selectIndex.theirs == that.items.length - 1){
+                if(that.selectIndex.theirs == that.items.theirs.length - 1){
                     that.isLast.theirs = false;
                 }
 
@@ -140,8 +157,21 @@ export class SitePage {
             this.selectIndex.mine   = null;
             this.selectIndex.theirs = null;
 
+            this.isLast.mine   = false;
+            this.isLast.theirs = false;
+
             this.setAllItemMarginTopNull(this.list.mine);
             this.setAllItemMarginTopNull(this.list.theirs);
+        }
+
+        this.currentSite = null;
+    }
+
+    setCurrentSite(index: number, type: String){
+        if(type == "mine"){
+            this.currentSite = this.items.mine[index];
+        }else if(type == "theirs"){
+            this.currentSite = this.items.theirs[index];
         }
     }
 }
