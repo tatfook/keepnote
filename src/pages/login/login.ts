@@ -46,6 +46,8 @@ export class LoginPage {
                 this.apiProvide.setData("isLogin", "true");
                 this.apiProvide.setData("userinfo", JSON.stringify(data.data));
                 this.navCtrl.push(SitePage, {});
+            }else{
+                alert(data.error.message);
             }
         })
 

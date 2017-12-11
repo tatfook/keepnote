@@ -5,6 +5,7 @@ import {Keyboard}                                      from '@ionic-native/keybo
 import {ApiProvider}                                   from '../../providers/api/api';
 import {LoginPage}                                     from '../../pages/login/login';
 import {SitePage}                                      from '../../pages/site/site';
+import {ProfilePage}                                   from '../../pages/profile/profile';
 
 declare var CodeMirror;
 
@@ -93,6 +94,14 @@ export class NotePage {
                 // lint: true,
             });
         }
+    }
+
+    profile(){
+        this.navCtrl.push(ProfilePage, {});
+    }
+
+    settings(){
+
     }
 
     iOSSetHeight(e: any, noteInstance: any){

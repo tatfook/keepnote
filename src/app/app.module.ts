@@ -3,9 +3,11 @@ import {BrowserModule}                            from '@angular/platform-browse
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {Keepnote}                                 from './app.component';
 
-import {NotePage}  from '../pages/note/note';
-import {LoginPage} from '../pages/login/login';
-import {SitePage}  from '../pages/site/site';
+import {NotePage}    from '../pages/note/note';
+import {LoginPage}   from '../pages/login/login';
+import {SitePage}    from '../pages/site/site';
+import {ProfilePage} from '../pages/profile/profile';
+
 // import {AboutPage}    from '../pages/about/about';
 // import {ContactPage}  from '../pages/contact/contact';
 // import {HomePage}     from '../pages/home/home';
@@ -25,6 +27,7 @@ import {ApiProvider}  from '../providers/api/api';
         NotePage,
         LoginPage,
         SitePage,
+        ProfilePage,
         // AboutPage,
         // ContactPage,
         // HomePage,
@@ -41,6 +44,7 @@ import {ApiProvider}  from '../providers/api/api';
         NotePage,
         LoginPage,
         SitePage,
+        ProfilePage,
         // AboutPage,
         // ContactPage,
         // HomePage,

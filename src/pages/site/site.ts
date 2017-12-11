@@ -38,7 +38,7 @@ export class SitePage {
         } catch (error) {
             
         }
-        
+
         this.items.mine   = [];
         this.items.theirs = [];
 
@@ -60,8 +60,10 @@ export class SitePage {
 
     confirm(){
         this.apiProvider.setData("currentSite", JSON.stringify(this.currentSite));
-
+        
         this.navCtrl.push(NotePage,{});
+        
+        this.currentSite = null;
     }
 
     selectItem(event: any, index: number, type: String): any{
@@ -162,14 +164,16 @@ export class SitePage {
 
             this.setAllItemMarginTopNull(this.list.mine);
             this.setAllItemMarginTopNull(this.list.theirs);
-        }
-
-        this.currentSite = null;
+        }        
     }
 
     setCurrentSite(index: number, type: String){
+        console.log(index);
+        console.log(type);
+
         if(type == "mine"){
             this.currentSite = this.items.mine[index];
+            console.log(this.currentSite);
         }else if(type == "theirs"){
             this.currentSite = this.items.theirs[index];
         }
