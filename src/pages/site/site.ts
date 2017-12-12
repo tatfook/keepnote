@@ -42,8 +42,6 @@ export class SitePage {
         this.items.mine   = [];
         this.items.theirs = [];
 
-        console.log(this.items);
-
         apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_data_source/getByUsername", {username: userinfo.userinfo.username},(data) => {
             this.items.mine = data.data;
         });

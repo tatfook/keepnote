@@ -31,7 +31,7 @@ export class ProfilePage {
 
         this.userinfo = userinfo.userinfo;
 
-        console.log(this.userinfo);
+        // console.log(this.userinfo);
     }
 
     logout(){

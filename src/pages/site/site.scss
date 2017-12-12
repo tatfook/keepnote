@@ -1,13 +1,13 @@
-ion-app.md [padding],ion-app.md [padding] .scroll-content {
-    padding: 40px;
-}
-
 page-site {
     background-color: #f1f8ff;
 
     .list-header-md{
         border-top: none;
         font-weight: 600;
+    }
+
+    .scroll-content {
+        padding: 40px !important;
     }
 
     ion-content{

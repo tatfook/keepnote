@@ -25,7 +25,8 @@ declare var CodeMirror;
 
 export class NotePage {
     content: object = {};
-    editor: HTMLElement;
+    editorElement: HTMLTextAreaElement;
+    editor: any = {};
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider) {
@@ -65,15 +66,16 @@ export class NotePage {
 	}
 
     initCodeMirror(){
-        this.editor = <HTMLElement>document.querySelector("#editor");
+        this.editorElement = <HTMLTextAreaElement>document.querySelector("#editor");
 
         if(this.platform.is("ios")){
-            this.editor.style.width  = "100%";
-            this.editor.style.height = "100%";
+            this.editorElement.style.width  = "100%";
+            this.editorElement.style.height = "100%";
         }else{
-            console.log(this.editor);
-            CodeMirror.fromTextArea(this.editor, {
-                //mode: 'markdown',
+            this.editorElement.value = "<script>var a = '11111';</script>";
+
+            this.editor = CodeMirror.fromTextArea(this.editorElement, {
+                mode: 'markdown',
                 lineNumbers: true,
                 theme: "default",
                 viewportMargin: Infinity,
@@ -84,10 +86,10 @@ export class NotePage {
                 indentUnit:1,
                 smartIndent:true,
                 foldGutter: true,
-                // foldOptions: {
-                //     rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.markdown, CodeMirror.fold.xml, CodeMirror.fold.wikiCmdFold),
-                //     clearOnEnter: false,
-                // },
+                foldOptions: {
+                    rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.markdown, CodeMirror.fold.xml),
+                    clearOnEnter: false,
+                },
                 gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
                 //全屏模式
                 fullScreen:true,
@@ -104,6 +106,22 @@ export class NotePage {
 
     settings(){
         this.navCtrl.push(SitePage, {});
+    }
+
+    backward(){
+        if(this.editor){
+            this.editor.undo();
+        }
+    }
+
+    forward(){
+        if(this.editor){
+            this.editor.redo();
+        }
+    }
+
+    save(){
+
     }
 
     iOSSetHeight(e: any, noteInstance: any){
