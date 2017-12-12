@@ -65,15 +65,18 @@ export class NotePage {
         this.initCodeMirror();
 	}
 
+
     initCodeMirror(){
         this.editorElement = <HTMLTextAreaElement>document.querySelector("#editor");
 
-        if(this.platform.is("ios")){
-            this.editorElement.style.width  = "100%";
-            this.editorElement.style.height = "100%";
-        }else{
-            this.editorElement.value = "<script>var a = '11111';</script>";
+        this.editorElement.value = "<script>var a = '11111';</script>";
 
+        if(this.platform.is("ios")){
+            this.editorElement.style.width        = "100%";
+            this.editorElement.style.height       = "100%";
+            this.editorElement.style.border       = "0px";
+            this.editorElement.style.borderRadius = "0px";
+        }else{
             this.editor = CodeMirror.fromTextArea(this.editorElement, {
                 mode: 'markdown',
                 lineNumbers: true,
