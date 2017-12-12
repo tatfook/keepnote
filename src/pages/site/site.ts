@@ -58,9 +58,13 @@ export class SitePage {
 
     ionViewDidLoad() {}
 
+    ionViewWillEnter() {
+        this.navCtrl.remove(0, 100);
+    }
+
     confirm(){
         this.apiProvider.setData("currentSite", JSON.stringify(this.currentSite));
-        
+
         this.navCtrl.push(NotePage,{});
         
         this.currentSite = null;

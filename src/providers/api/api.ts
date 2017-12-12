@@ -40,6 +40,12 @@ export class ApiProvider {
         }
     }
 
+    public removeData(key: string): any{
+        if(this.storage){
+            this.storage.removeItem(key);
+        }
+    }
+
     public post(url:string, params: object, callback: Function): any{
         this.http.post(url, params)
         .map(res => res.json())

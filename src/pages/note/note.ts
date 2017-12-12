@@ -25,6 +25,7 @@ declare var CodeMirror;
 
 export class NotePage {
     content: object = {};
+    editor: HTMLElement;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider) {
@@ -64,13 +65,14 @@ export class NotePage {
 	}
 
     initCodeMirror(){
-        let editor:HTMLElement = <HTMLElement>document.querySelector("#editor");
-        
+        this.editor = <HTMLElement>document.querySelector("#editor");
+
         if(this.platform.is("ios")){
-            editor.style.width  = "100%";
-            editor.style.height = "100%";
+            this.editor.style.width  = "100%";
+            this.editor.style.height = "100%";
         }else{
-            CodeMirror.fromTextArea(editor, {
+            console.log(this.editor);
+            CodeMirror.fromTextArea(this.editor, {
                 //mode: 'markdown',
                 lineNumbers: true,
                 theme: "default",
@@ -101,7 +103,7 @@ export class NotePage {
     }
 
     settings(){
-
+        this.navCtrl.push(SitePage, {});
     }
 
     iOSSetHeight(e: any, noteInstance: any){
