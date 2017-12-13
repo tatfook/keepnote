@@ -77,6 +77,7 @@ export class NotePage {
             this.editorElement.style.height       = "100%";
             this.editorElement.style.border       = "0px";
             this.editorElement.style.borderRadius = "0px";
+            this.editorElement.style.paddingTop    = "20px";
         }else{
             this.editor = CodeMirror.fromTextArea(this.editorElement, {
                 mode: 'markdown',
