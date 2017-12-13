@@ -91,4 +91,5 @@
     <allow-navigation href="http://192.168.0.102:8100" />
     <allow-navigation href="http://192.168.0.101:8100" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-camera" spec="^3.0.0" />
 </widget>

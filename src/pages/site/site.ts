@@ -1,4 +1,4 @@
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Component}   from '@angular/core';
 import {NotePage}    from '../note/note';
 import {ApiProvider} from "../../providers/api/api";
@@ -28,7 +28,7 @@ export class SitePage {
     canExecute: boolean = true;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                public apiProvider: ApiProvider) {
+                public platform: Platform, public apiProvider: ApiProvider) {
 
         let userinfoStr: string = apiProvider.getData("userinfo");
         let userinfo: any  = {};
@@ -106,6 +106,18 @@ export class SitePage {
         this.setCurrentSite(index, type);
     }
 
+    selectIndexiOS(index, type){
+        if(type == "mine"){
+            this.selectIndex.mine = index;
+        }else if(type == "theirs"){
+            this.selectIndex.theirs = index;
+        }
+
+        this.setCurrentSite(index, type);
+
+        this.confirm();
+    }
+
     setAllItemMarginTopNull(element: HTMLElement){
         if(element){
             let childNodes: Array<any> = Array.from(element.childNodes);
@@ -170,12 +182,8 @@ export class SitePage {
     }
 
     setCurrentSite(index: number, type: String){
-        console.log(index);
-        console.log(type);
-
         if(type == "mine"){
             this.currentSite = this.items.mine[index];
-            console.log(this.currentSite);
         }else if(type == "theirs"){
             this.currentSite = this.items.theirs[index];
         }

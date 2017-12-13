@@ -16,6 +16,7 @@ import {ProfilePage} from '../pages/profile/profile';
 import {StatusBar}    from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HttpModule}   from '@angular/http';
+import {Camera}       from '@ionic-native/camera';
 import {Keyboard}     from '@ionic-native/keyboard';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 //import {HttpClient}   from '@angular/common/http';
@@ -59,6 +60,7 @@ import {ApiProvider}  from '../providers/api/api';
         },
         Keyboard,
         InAppBrowser,
+        Camera,
         //HttpClient,
         ApiProvider
     ]

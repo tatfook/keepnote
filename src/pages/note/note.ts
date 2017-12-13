@@ -6,6 +6,7 @@ import {ApiProvider}                                   from '../../providers/api
 import {LoginPage}                                     from '../../pages/login/login';
 import {SitePage}                                      from '../../pages/site/site';
 import {ProfilePage}                                   from '../../pages/profile/profile';
+import {Camera, CameraOptions}                         from '@ionic-native/camera';
 
 declare var CodeMirror;
 
@@ -28,7 +29,7 @@ export class NotePage {
     editorElement: HTMLTextAreaElement;
     editor: any = {};
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
+    constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
                 private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider) {
 
         //let iab = this.inAppBrowser;
@@ -124,6 +125,35 @@ export class NotePage {
     }
 
     save(){
+
+    }
+
+    useCamera(){
+        const options: CameraOptions = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
+        }
+
+        this.camera.getPicture(options).then((imageData) => {
+            // imageData is either a base64 encoded string or a file URI
+            // If it's base64:
+            let base64Image = 'data:image/jpeg;base64,' + imageData;
+        }, (err) => {
+            // Handle error
+        });
+    }
+
+    record(){
+
+    }
+
+    files(){
+
+    }
+
+    hashtag(){
 
     }
 

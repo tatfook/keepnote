@@ -38,25 +38,25 @@
     <ion-toolbar>
         <ion-buttons>
             <div class="tools-bottom">
-                <button ion-button icon-only>
+                <button (click)="useCamera()" ion-button icon-only>
                     <ion-icon cam></ion-icon>
                 </button>
                 <div class="tools-text">拍摄</div>
             </div>
             <div class="tools-bottom">
-                <button ion-button icon-only>
+                <button (click)="record()" ion-button icon-only>
                     <ion-icon record></ion-icon>
                 </button>
                 <div class="tools-text">录音</div>
             </div>
             <div class="tools-bottom">
-                <button ion-button icon-only>
+                <button (click)="files()" ion-button icon-only>
                     <ion-icon files></ion-icon>
                 </button>
                 <div class="tools-text">文件</div>
             </div>
             <div class="tools-bottom">
-                <button ion-button icon-only>
+                <button (click)="hashtag()" ion-button icon-only>
                     <ion-icon hashtag></ion-icon>
                 </button>
                 <div class="tools-text">#</div>
