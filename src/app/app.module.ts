@@ -19,6 +19,8 @@ import {HttpModule}   from '@angular/http';
 import {Camera}       from '@ionic-native/camera';
 import {Keyboard}     from '@ionic-native/keyboard';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
+import {FileChooser}  from '@ionic-native/file-chooser';
+
 //import {HttpClient}   from '@angular/common/http';
 import {ApiProvider}  from '../providers/api/api';
 
@@ -61,6 +63,7 @@ import {ApiProvider}  from '../providers/api/api';
         Keyboard,
         InAppBrowser,
         Camera,
+        FileChooser,
         //HttpClient,
         ApiProvider
     ]

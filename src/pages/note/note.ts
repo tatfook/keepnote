@@ -7,6 +7,7 @@ import {LoginPage}                                     from '../../pages/login/l
 import {SitePage}                                      from '../../pages/site/site';
 import {ProfilePage}                                   from '../../pages/profile/profile';
 import {Camera, CameraOptions}                         from '@ionic-native/camera';
+import {FileChooser}                                   from '@ionic-native/file-chooser';
 
 declare var CodeMirror;
 
@@ -30,7 +31,8 @@ export class NotePage {
     editor: any = {};
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
-                private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider) {
+                private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider,
+                private fileChooser: FileChooser) {
 
         //let iab = this.inAppBrowser;
 
@@ -54,17 +56,17 @@ export class NotePage {
     ionViewDidLoad() {
     }
 
-	ionViewWillEnter(){
-		if(this.apiProvider.getData("isLogin") == "true"){
+    ionViewWillEnter(){
+        if(this.apiProvider.getData("isLogin") == "true"){
             if(!this.apiProvider.getData("currentSite")){
                 this.navCtrl.push(SitePage, {});
             }
-		}else{
-			this.navCtrl.push(LoginPage, {});
+        }else{
+            this.navCtrl.push(LoginPage, {});
         }
         
         this.initCodeMirror();
-	}
+    }
 
 
     initCodeMirror(){
@@ -73,10 +75,10 @@ export class NotePage {
         this.editorElement.value = "<script>var a = '11111';</script>";
 
         if(this.platform.is("ios")){
-            this.editorElement.style.width        = "100%";
-            this.editorElement.style.height       = "100%";
-            this.editorElement.style.border       = "0px";
-            this.editorElement.style.borderRadius = "0px";
+            this.editorElement.style.width         = "100%";
+            this.editorElement.style.height        = "100%";
+            this.editorElement.style.border        = "0px";
+            this.editorElement.style.borderRadius  = "0px";
             this.editorElement.style.paddingTop    = "20px";
         }else{
             this.editor = CodeMirror.fromTextArea(this.editorElement, {
@@ -147,11 +149,13 @@ export class NotePage {
     }
 
     record(){
-
+        
     }
 
     files(){
-
+        this.fileChooser.open()
+        .then(uri => console.log(uri))
+        .catch(e => console.log(e));
     }
 
     hashtag(){
