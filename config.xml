@@ -93,4 +93,6 @@
     <engine name="android" spec="~6.3.0" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-filechooser" spec="^1.0.1" />
+    <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
+    <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
 </widget>

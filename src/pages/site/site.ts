@@ -42,11 +42,11 @@ export class SitePage {
         this.items.mine   = [];
         this.items.theirs = [];
 
-        apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_data_source/getByUsername", {username: userinfo.userinfo.username},(data) => {
+        apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_data_source/getByUsername", {username: userinfo.userinfo.username}, null, (data) => {
             this.items.mine = data.data;
         });
 
-        apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_user/getSiteListByMemberName", {memberName: userinfo.userinfo.username}, (data) => {
+        apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_user/getSiteListByMemberName", {memberName: userinfo.userinfo.username}, null, (data) => {
             this.items.theirs = data.data;
         });
 

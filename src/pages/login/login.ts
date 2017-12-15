@@ -41,7 +41,7 @@ export class LoginPage {
             password: this.password
         }
 
-        this.apiProvide.post(this.apiProvide.getKeepworkApiBaseUrl() + "user/login", params, (data) => {
+        this.apiProvide.post(this.apiProvide.getKeepworkApiBaseUrl() + "user/login", params, null, (data) => {
             if(data && data.error && data.error.id == 0){
                 this.apiProvide.setData("isLogin", "true");
                 this.apiProvide.setData("userinfo", JSON.stringify(data.data));

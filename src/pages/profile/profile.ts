@@ -30,8 +30,6 @@ export class ProfilePage {
         let userinfo:any = JSON.parse(this.apiProvider.getData("userinfo"));
 
         this.userinfo = userinfo.userinfo;
-
-        // console.log(this.userinfo);
     }
 
     logout(){

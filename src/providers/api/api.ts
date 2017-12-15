@@ -1,7 +1,7 @@
 //import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable}                          from 'rxjs/Observable';
-import {Http}                                from '@angular/http';
+import {Http, Headers, RequestOptions}       from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -24,30 +24,60 @@ export class ApiProvider {
         }
     }
     
-    public getKeepworkApiBaseUrl(): string{
+    public getKeepworkApiBaseUrl():string{
         return this.keepworkApi;
     }
 
-    public setData(key: string, value: string): any{
+    public getGitlabApiBaseUrl():string{
+        let userinfo:any = JSON.parse(this.getData("userinfo"));
+        let url:string   = "";
+
+        if(userinfo && userinfo.userinfo && userinfo.userinfo.defaultSiteDataSource && userinfo.userinfo.defaultSiteDataSource.apiBaseUrl){
+            return userinfo.userinfo.defaultSiteDataSource.apiBaseUrl;
+        }
+
+        return "";
+    }
+
+    public getGitlabToken():string {
+        let userinfo:any = JSON.parse(this.getData("userinfo"));
+        let url:string   = "";
+
+        if(userinfo && userinfo.userinfo && userinfo.userinfo.defaultSiteDataSource && userinfo.userinfo.defaultSiteDataSource.dataSourceToken){
+            return userinfo.userinfo.defaultSiteDataSource.dataSourceToken;
+        }
+
+        return "";
+    }
+
+    public setData(key: string, value: string):any {
         if(this.storage){
             this.storage.setItem(key, value);
         }
     }
 
-    public getData(key: string): string{
+    public getData(key: string):string {
         if(this.storage){
             return this.storage.getItem(key);
         }
     }
 
-    public removeData(key: string): any{
+    public removeData(key: string):any {
         if(this.storage){
             this.storage.removeItem(key);
         }
     }
 
-    public post(url:string, params: object, callback: Function): any{
-        this.http.post(url, params)
+    public post(url:string, params: object, headers: Headers, callback: Function):any {
+        let optionsParams:any = {};
+
+        if(headers){
+            optionsParams.headers = headers;
+        }
+
+        let options:RequestOptions = new RequestOptions(optionsParams);
+
+        this.http.post(url, params, options)
         .map(res => res.json())
         .subscribe(data => {
             callback(data);

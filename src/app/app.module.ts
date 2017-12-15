@@ -20,6 +20,8 @@ import {Camera}       from '@ionic-native/camera';
 import {Keyboard}     from '@ionic-native/keyboard';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {FileChooser}  from '@ionic-native/file-chooser';
+import {FileOpener}   from '@ionic-native/file-opener';
+import {NativeAudio}  from '@ionic-native/native-audio';
 
 //import {HttpClient}   from '@angular/common/http';
 import {ApiProvider}  from '../providers/api/api';
@@ -64,6 +66,8 @@ import {ApiProvider}  from '../providers/api/api';
         InAppBrowser,
         Camera,
         FileChooser,
+        FileOpener,
+        NativeAudio,
         //HttpClient,
         ApiProvider
     ]
