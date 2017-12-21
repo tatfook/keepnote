@@ -201,7 +201,7 @@ export class NotePage {
             this.initCodeMirror();
 
             let title: string       = "恭喜！";
-            let msg: string         = documentUrl + "<br />已成功上传。";
+            let msg: string         = "<a href=\"" + documentUrl + "\" traget=\"_blank\">" + documentUrl + "</a><br />已成功上传。";
             let buttonLeft: string  = "打开文件";
             let buttonRight: string = "确定"; 
 
