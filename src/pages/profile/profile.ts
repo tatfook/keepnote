@@ -28,8 +28,13 @@ export class ProfilePage {
 
     ionViewWillEnter(){
         let userinfo:any = JSON.parse(this.apiProvider.getData("userinfo"));
+        userinfo = userinfo.userinfo;
 
-        this.userinfo = userinfo.userinfo;
+        if(userinfo.portrait.match("default_portrait")){
+            userinfo.portrait = this.apiProvider.getKeepworkHost() + userinfo.portrait;
+        }
+
+        this.userinfo = userinfo;
     }
 
     logout(){

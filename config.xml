@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.keepwork.keepnote" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Keepnote</name>
+    <name>Keepwork</name>
     <description>a mobile app for assisting note creations in keepwork.com</description>
     <author email="hi@keepwork" href="http://keepwork.com/">keepwork</author>
     <content src="index.html" />

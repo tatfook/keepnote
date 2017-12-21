@@ -17,7 +17,7 @@
                                 *ngFor="let item of items.mine; let i = index">/{{item.username}}/{{item.sitename}}</ion-item>
                     <ion-item *ngIf="isLast.mine" class="active-next"></ion-item>
                 </div>
-                <div class="more"></div>
+                <!-- <div class="more"></div> -->
             </div>
         </ion-list>
         <ion-list *ngIf="items.theirs.length > 0">
@@ -31,7 +31,7 @@
                                 *ngFor="let item of items.theirs; let i = index">/{{item.siteuser.username}}/{{item.siteuser.sitename}}</ion-item>
                     <ion-item *ngIf="isLast.theirs" class="active-next"></ion-item>
                 </div>
-                <div class="more"></div>
+                <!-- <div class="more"></div> -->
             </div>
         </ion-list>
         <button (click)="confirm()" [disabled]="selectIndex.mine == null && selectIndex.theirs == null" class="confirm" ion-button>确定</button>
