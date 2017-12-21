@@ -1,8 +1,8 @@
 import {DatePipe}                                      from '@angular/common';
 import {Component}                                     from '@angular/core';
-import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, Platform, AlertController} from 'ionic-angular';
 import {Keyboard}                                      from '@ionic-native/keyboard';
-// import {InAppBrowser, InAppBrowserOptions}             from '@ionic-native/in-app-browser';
+import {InAppBrowser, InAppBrowserOptions}             from '@ionic-native/in-app-browser';
 import {Camera, CameraOptions}                         from '@ionic-native/camera';
 import {FileChooser}                                   from '@ionic-native/file-chooser';
 import {FileOpener}                                    from '@ionic-native/file-opener';
@@ -35,9 +35,10 @@ export class NotePage {
     editorElement: HTMLTextAreaElement;
     editor: any = {};
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera,
-                private platform: Platform, private keyboard: Keyboard, public apiProvider: ApiProvider,
-                private fileChooser: FileChooser, private nativeAudio: NativeAudio) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera,
+                public platform: Platform, public keyboard: Keyboard, public apiProvider: ApiProvider,
+                public fileChooser: FileChooser, public nativeAudio: NativeAudio, public alertCtrl: AlertController,
+                public inAppBrowser: InAppBrowser) {
 
         //let iab = this.inAppBrowser;
 
@@ -96,6 +97,12 @@ export class NotePage {
     }
 
     initCodeMirror(){
+        let codeMirrorEditor:HTMLElement = <HTMLElement>document.querySelector(".CodeMirror");
+
+        if(codeMirrorEditor){
+            codeMirrorEditor.remove();
+        }
+
         this.editorElement = <HTMLTextAreaElement>document.querySelector("#editor");
 
         if(this.apiProvider.getData("noteContent")){
@@ -177,6 +184,9 @@ export class NotePage {
                          "/repository/files/" + currentSite.username +
                          "/" + currentSite.sitename + "/" + fileName + ".md";
 
+        let documentUrl = this.apiProvider.getKeepworkHost() + "/" + currentSite.username + "/" +
+                          currentSite.sitename + "/" + fileName;
+
         let params:any = {
             commit_message : url,
             branch : "master",
@@ -189,7 +199,15 @@ export class NotePage {
         this.apiProvider.post(url, params, headers, (data)=>{
             this.apiProvider.removeData("noteContent");
             this.initCodeMirror();
-            alert("文件已上传，本地数据已清空，在上keepwork.com查看");
+
+            let title: string       = "恭喜！";
+            let msg: string         = documentUrl + "<br />已成功上传。";
+            let buttonLeft: string  = "打开文件";
+            let buttonRight: string = "确定"; 
+
+            this.showConfirm(title, msg, buttonLeft, buttonRight, ()=>{
+                this.inAppBrowser.create(documentUrl,'_blank');
+            }, ()=>{});
         })
     }
 
@@ -243,5 +261,28 @@ export class NotePage {
 
     iOSResetHeight(e: any, noteInstance: any){
         noteInstance.content = {};
+    }
+
+    showConfirm(title: string, msg: string, buttonLeft: string, buttonRight: string, leftCallback: Function, rightCallback: Function) {
+        let confirm = this.alertCtrl.create({
+            title: title,
+            message: msg,
+            buttons: [
+                {
+                    text: buttonLeft,
+                    handler: () => {
+                        leftCallback();
+                    }
+                },
+                {
+                    text: buttonRight,
+                    handler: () => {
+                        rightCallback();
+                    }
+                }
+            ]
+        });
+
+        confirm.present();
     }
 }

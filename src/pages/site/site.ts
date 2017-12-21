@@ -44,10 +44,12 @@ export class SitePage {
 
         apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_data_source/getByUsername", {username: userinfo.userinfo.username}, null, (data) => {
             this.items.mine = data.data;
+            console.log(this.items.mine);
         });
 
         apiProvider.post(apiProvider.getKeepworkApiBaseUrl() + "site_user/getSiteListByMemberName", {memberName: userinfo.userinfo.username}, null, (data) => {
             this.items.theirs = data.data;
+            console.log(this.items.theirs);
         });
 
         this.selectIndex.mine   = null;
@@ -185,7 +187,7 @@ export class SitePage {
         if(type == "mine"){
             this.currentSite = this.items.mine[index];
         }else if(type == "theirs"){
-            this.currentSite = this.items.theirs[index];
+            this.currentSite = this.items.theirs[index].siteinfo.dataSource;
         }
     }
 }

@@ -28,7 +28,7 @@
                 <div class="site-list-content">
                     <ion-item class="site-item" (click)="selectItem($event, i, 'theirs')" 
                                 [ngClass]="{'active': i == selectIndex.theirs, 'active-next': selectIndex.theirs || selectIndex.theirs == 0 ? i == (selectIndex.theirs + 1) : false}" 
-                                *ngFor="let item of items.theirs; let i = index">{{item}}</ion-item>
+                                *ngFor="let item of items.theirs; let i = index">/{{item.siteuser.username}}/{{item.siteuser.sitename}}</ion-item>
                     <ion-item *ngIf="isLast.theirs" class="active-next"></ion-item>
                 </div>
                 <div class="more"></div>

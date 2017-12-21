@@ -14,7 +14,8 @@ import 'rxjs/add/operator/do';
 @Injectable()
 
 export class ApiProvider {
-    keepworkApi: string = "http://keepwork.com/api/wiki/models/";
+    keepworkHost: string = "http://keepwork.com";
+    keepworkApi: string  = this.keepworkHost + "/api/wiki/models/";
     storage: any;
     request: Observable<any>;
 
@@ -24,6 +25,10 @@ export class ApiProvider {
         }
     }
     
+    public getKeepworkHost(): string{
+        return this.keepworkHost;
+    }
+
     public getKeepworkApiBaseUrl():string{
         return this.keepworkApi;
     }
