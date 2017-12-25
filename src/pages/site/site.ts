@@ -26,6 +26,7 @@ export class SitePage {
     list: any           = {};
     currentSite: any    = {};
     canExecute: boolean = true;
+    selectWindowHeight: number;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
                 public platform: Platform, public apiProvider: ApiProvider) {
@@ -57,12 +58,12 @@ export class SitePage {
     ionViewDidLoad() {}
 
     ionViewWillEnter() {
-        this.navCtrl.remove(0, 100);
+        this.selectWindowHeight = (window.screen.height - 280) / 2;
     }
 
     confirm(){
         this.apiProvider.setData("currentSite", JSON.stringify(this.currentSite));
-
+        this.navCtrl.remove(0, 100);
         this.navCtrl.push(NotePage,{});
         
         this.currentSite = null;
@@ -89,19 +90,19 @@ export class SitePage {
             }
         }
 
-        event.path.forEach(element => {
-            if(element.tagName == "ION-ITEM"){
-                this.setListContentListener(element.parentElement, type);
-                this.setAllItemMarginTopNull(element.parentElement);
-                element.style.marginTop = -element.parentElement.scrollTop + "px";
+        // event.path.forEach(element => {
+        //     if(element.tagName == "ION-ITEM"){
+        //         this.setListContentListener(element.parentElement, type);
+        //         this.setAllItemMarginTopNull(element.parentElement);
+        //         element.style.marginTop = -element.parentElement.scrollTop + "px";
 
-                if(type == "mine") {
-                    this.list.mine = element.parentElement;
-                }else if(type == "theirs"){
-                    this.list.theirs = element.parentElement;
-                }
-            }
-        });
+        //         if(type == "mine") {
+        //             this.list.mine = element.parentElement;
+        //         }else if(type == "theirs"){
+        //             this.list.theirs = element.parentElement;
+        //         }
+        //     }
+        // });
 
         this.setCurrentSite(index, type);
     }

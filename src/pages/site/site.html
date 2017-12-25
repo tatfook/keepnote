@@ -4,6 +4,14 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>笔记位置</ion-title>
+    </ion-navbar>
+
+</ion-header>
 <ion-content (click)="setAllUnselected(false)" padding>
     <div *ngIf="!platform.is('ios')">
         <ion-list *ngIf="items.mine.length > 0">
@@ -11,13 +19,15 @@
                 创建的网站：
             </ion-list-header>
             <div class="site-list">
-                <div class="site-list-content">
+                <div class="site-list-content" [ngStyle]="{'height.px': selectWindowHeight}">
                     <ion-item class="site-item" (click)="selectItem($event, i, 'mine')" 
-                                [ngClass]="{'active': i == selectIndex.mine, 'active-next': selectIndex.mine || selectIndex.mine == 0 ? i == (selectIndex.mine + 1) : false}" 
-                                *ngFor="let item of items.mine; let i = index">/{{item.username}}/{{item.sitename}}</ion-item>
-                    <ion-item *ngIf="isLast.mine" class="active-next"></ion-item>
+                                [ngClass]="{'active': i == selectIndex.mine}" 
+                                *ngFor="let item of items.mine; let i = index">
+                        /{{item.username}}/{{item.sitename}}
+                        <button *ngIf="i == selectIndex.mine">查看</button>
+                    </ion-item>
+                    <!-- <ion-item *ngIf="isLast.mine" class="active-next"></ion-item> -->
                 </div>
-                <!-- <div class="more"></div> -->
             </div>
         </ion-list>
         <ion-list *ngIf="items.theirs.length > 0">
@@ -25,29 +35,22 @@
                 参与的网站：
             </ion-list-header>
             <div class="site-list">
-                <div class="site-list-content">
+                <div class="site-list-content" [ngStyle]="{'height.px': selectWindowHeight}">
                     <ion-item class="site-item" (click)="selectItem($event, i, 'theirs')" 
-                                [ngClass]="{'active': i == selectIndex.theirs, 'active-next': selectIndex.theirs || selectIndex.theirs == 0 ? i == (selectIndex.theirs + 1) : false}" 
-                                *ngFor="let item of items.theirs; let i = index">/{{item.siteuser.username}}/{{item.siteuser.sitename}}</ion-item>
-                    <ion-item *ngIf="isLast.theirs" class="active-next"></ion-item>
+                                [ngClass]="{'active': i == selectIndex.theirs}"
+                                *ngFor="let item of items.theirs; let i = index">
+                        /{{item.siteuser.username}}/{{item.siteuser.sitename}}
+                        <button *ngIf="i == selectIndex.theirs">查看</button>
+                    </ion-item>
                 </div>
-                <!-- <div class="more"></div> -->
             </div>
         </ion-list>
-        <button (click)="confirm()" [disabled]="selectIndex.mine == null && selectIndex.theirs == null" class="confirm" ion-button>确定</button>
+        <!-- <button (click)="confirm()" [disabled]="selectIndex.mine == null && selectIndex.theirs == null" class="confirm" ion-button>确定</button> -->
     </div>
     <div *ngIf="platform.is('ios')">
         <ion-list>
             <ion-list-header>创建的网站：</ion-list-header>
             <ion-item (click)="selectIndexiOS(i, 'mine')" *ngFor="let item of items.mine; let i = index">/{{item.username}}/{{item.sitename}}</ion-item>
         </ion-list>
-
-        <!-- <ion-list>
-            <ion-list-header>Action</ion-list-header>
-            <ion-item>Terminator II</ion-item>
-            <ion-item>The Empire Strikes Back</ion-item>
-            <ion-item>Blade Runner</ion-item>
-        </ion-list> -->
     </div>
-    
 </ion-content>
