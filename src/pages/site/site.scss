@@ -91,6 +91,10 @@ page-site {
                     border-radius: 10px;
                 }
 
+                ion-item.item-md.item-block .item-inner button:first-child{
+                    margin-left: 10px;
+                }
+
                 ion-item:last-child.item-md.item-block .item-inner{
                     border: none;
                 }

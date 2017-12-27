@@ -90,7 +90,9 @@ export class NotePage {
         if(this.platform.is("ios")){
             content = this.editorElement.value;
         }else{
-            content = this.editor.getValue();
+            if(this.editor && typeof(this.editor.getValue) == "function"){
+                content = this.editor.getValue();
+            }
         }
 
         this.apiProvider.setData("noteContent", content);

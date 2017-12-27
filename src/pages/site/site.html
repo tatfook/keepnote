@@ -24,7 +24,8 @@
                                 [ngClass]="{'active': i == selectIndex.mine}" 
                                 *ngFor="let item of items.mine; let i = index">
                         /{{item.username}}/{{item.sitename}}
-                        <button *ngIf="i == selectIndex.mine">查看</button>
+                        <button *ngIf="i == selectIndex.mine" (click)="openSite(i, 'mine')">选择</button>
+                        <button *ngIf="i == selectIndex.mine" (click)="confirm()">查看</button>
                     </ion-item>
                     <!-- <ion-item *ngIf="isLast.mine" class="active-next"></ion-item> -->
                 </div>

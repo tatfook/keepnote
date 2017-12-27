@@ -61,6 +61,14 @@ export class SitePage {
         this.selectWindowHeight = (window.screen.height - 280) / 2;
     }
 
+    openSite(index: number, type: string) {
+        if(type == "mine" && this.currentSite){
+            let url: string = this.apiProvider.getKeepworkHost() + "/" + this.currentSite.username + "/" + this.currentSite.sitename;
+
+            window.open(url);
+        }
+    }
+
     confirm(){
         this.apiProvider.setData("currentSite", JSON.stringify(this.currentSite));
         this.navCtrl.remove(0, 100);
@@ -119,24 +127,24 @@ export class SitePage {
         this.confirm();
     }
 
-    setAllItemMarginTopNull(element: HTMLElement){
-        if(element){
-            let childNodes: Array<any> = Array.from(element.childNodes);
+    // setAllItemMarginTopNull(element: HTMLElement){
+    //     if(element){
+    //         let childNodes: Array<any> = Array.from(element.childNodes);
             
-            childNodes.forEach(innerElement => {
-                if(innerElement.tagName == "ION-ITEM"){
-                    innerElement.style.marginTop = null;
-                }
-            });
-        }
-    }
+    //         childNodes.forEach(innerElement => {
+    //             if(innerElement.tagName == "ION-ITEM"){
+    //                 innerElement.style.marginTop = null;
+    //             }
+    //         });
+    //     }
+    // }
 
     setListContentListener(element: HTMLElement, type: String){
         let that = this;
 
         function set(){
             element.addEventListener("scroll", () => {
-                that.setAllItemMarginTopNull(element);
+                // that.setAllItemMarginTopNull(element);
     
                 if(that.selectIndex.mine == that.items.mine.length - 1){
                     that.isLast.mine = false;
@@ -177,8 +185,8 @@ export class SitePage {
             this.isLast.mine   = false;
             this.isLast.theirs = false;
 
-            this.setAllItemMarginTopNull(this.list.mine);
-            this.setAllItemMarginTopNull(this.list.theirs);
+            // this.setAllItemMarginTopNull(this.list.mine);
+            // this.setAllItemMarginTopNull(this.list.theirs);
         }        
     }
 
