@@ -175,7 +175,7 @@ export class NotePage {
     }
 
     save(){
-        let content:string = this.apiProvider.getData("noteContent");
+        let content:string = this.editor.getValue();
         
         let currentSite:any = JSON.parse(this.apiProvider.getData("currentSite"));
 
@@ -191,8 +191,8 @@ export class NotePage {
 
         let params:any = {
             commit_message : url,
-            branch : "master",
-            content : content
+            branch         : "master",
+            content        : content
         };
 
         let headers:Headers = new Headers();
@@ -250,9 +250,69 @@ export class NotePage {
         if(Object.keys(this.editor).length == 0){
             this.editorElement.value = this.editorElement.value + "\n #";
         }else{
-            var cursor = this.editor.getCursor();
-            this.editor.replaceRange("# \n", CodeMirror.Pos(cursor.line, 0), CodeMirror.Pos(cursor.line, 0));
-            this.editor.focus();
+            let pos = this.editor.getCursor();
+            
+            if(this.editor.getLine(pos.line).length == 0){
+                this.editor.replaceRange("# ", CodeMirror.Pos(pos.line, 0), CodeMirror.Pos(pos.line, 0));
+
+                let newPos = CodeMirror.Pos(pos.line, this.editor.getLine(pos.line).length);
+
+                this.editor.focus();
+                this.editor.setCursor(newPos);
+
+                return;
+            }
+
+            if(this.editor.getLine(pos.line).length != 0){
+                let str = this.editor.getLine(pos.line);
+                
+                let frontPart     = str.substring(0, pos.ch);
+                let posteriorPart = str.substring(pos.ch, str.length);
+                
+                if(frontPart.length != 0){
+                    let beInsert = true;
+                    for(let letter in frontPart.split("")){
+                        if(frontPart[letter] != "#" && frontPart[letter] != " "){
+                            beInsert = false;
+                            break;
+                        }else{
+                            if((parseInt(letter) + 1) == frontPart.length && frontPart[letter] != " "){
+                                beInsert = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(beInsert){
+                        let newStr = frontPart.substring(0, frontPart.length - 1) + "# ";
+                        
+                        this.editor.replaceRange(newStr, CodeMirror.Pos(pos.line, 0), CodeMirror.Pos(pos.line, pos.ch));
+
+                        this.editor.focus();
+
+                        let newPos = CodeMirror.Pos(pos.line, newStr.length);
+                        this.editor.setCursor(newPos);
+                    }else{
+                        this.editor.replaceRange("\n# ",  CodeMirror.Pos(pos.line, str.length),  CodeMirror.Pos(pos.line, str.length));
+
+                        this.editor.focus();
+
+                        let newPos = CodeMirror.Pos(pos.line + 1, 2);
+                        this.editor.setCursor(newPos);
+                        return;
+                    }
+                }else{
+                    this.editor.replaceRange("# ", CodeMirror.Pos(pos.line, 0), CodeMirror.Pos(pos.line, 0));
+                 
+                    this.editor.focus();
+
+                    let newPos = CodeMirror.Pos(pos.line, 2);
+                    this.editor.setCursor(newPos);
+                }
+                
+                this.editor.focus();
+                return;
+            }
         }
     }
 
