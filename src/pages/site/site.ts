@@ -62,7 +62,7 @@ export class SitePage {
     }
 
     openSite(index: number, type: string) {
-        if(type == "mine" && this.currentSite){
+        if(this.currentSite){
             let url: string = this.apiProvider.getKeepworkHost() + "/" + this.currentSite.username + "/" + this.currentSite.sitename;
 
             window.open(url);

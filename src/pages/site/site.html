@@ -41,7 +41,8 @@
                                 [ngClass]="{'active': i == selectIndex.theirs}"
                                 *ngFor="let item of items.theirs; let i = index">
                         /{{item.siteuser.username}}/{{item.siteuser.sitename}}
-                        <button *ngIf="i == selectIndex.theirs">查看</button>
+                        <button *ngIf="i == selectIndex.theirs" (click)="openSite(i, 'theirs')">选择</button>
+                        <button *ngIf="i == selectIndex.theirs" (click)="confirm()">查看</button>
                     </ion-item>
                 </div>
             </div>
