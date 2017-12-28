@@ -13,46 +13,38 @@
 
 </ion-header>
 <ion-content (click)="setAllUnselected(false)" padding>
-    <div *ngIf="!platform.is('ios')">
-        <ion-list *ngIf="items.mine.length > 0">
-            <ion-list-header class="site-type">
-                创建的网站：
-            </ion-list-header>
-            <div class="site-list">
-                <div class="site-list-content" [ngStyle]="{'height.px': selectWindowHeight}">
-                    <ion-item class="site-item" (click)="selectItem($event, i, 'mine')" 
-                                [ngClass]="{'active': i == selectIndex.mine}" 
-                                *ngFor="let item of items.mine; let i = index">
-                        /{{item.username}}/{{item.sitename}}
-                        <button *ngIf="i == selectIndex.mine" (click)="confirm()">选择</button>
-                        <button *ngIf="i == selectIndex.mine" (click)="openSite(i, 'mine')">查看</button>
-                    </ion-item>
-                    <!-- <ion-item *ngIf="isLast.mine" class="active-next"></ion-item> -->
-                </div>
+    <ion-list *ngIf="items.mine.length > 0">
+        <ion-list-header class="site-type">
+            创建的网站：
+        </ion-list-header>
+        <div class="site-list">
+            <div class="site-list-content" [ngStyle]="{'height.px': selectWindowHeight}">
+                <ion-item class="site-item" (click)="selectItem($event, i, 'mine')" 
+                            [ngClass]="{'active': i == selectIndex.mine}" 
+                            *ngFor="let item of items.mine; let i = index">
+                    <div style="max-width:55%;overflow:hidden;float: left;">/{{item.username}}/{{item.sitename}}</div>
+                    <button *ngIf="i == selectIndex.mine" (click)="confirm()">选择</button>
+                    <button *ngIf="i == selectIndex.mine" (click)="openSite(i, 'mine')">查看</button>
+                </ion-item>
+                <!-- <ion-item *ngIf="isLast.mine" class="active-next"></ion-item> -->
             </div>
-        </ion-list>
-        <ion-list *ngIf="items.theirs.length > 0">
-            <ion-list-header class="site-type">
-                参与的网站：
-            </ion-list-header>
-            <div class="site-list">
-                <div class="site-list-content" [ngStyle]="{'height.px': selectWindowHeight}">
-                    <ion-item class="site-item" (click)="selectItem($event, i, 'theirs')" 
-                                [ngClass]="{'active': i == selectIndex.theirs}"
-                                *ngFor="let item of items.theirs; let i = index">
-                        /{{item.siteuser.username}}/{{item.siteuser.sitename}}
-                        <button *ngIf="i == selectIndex.theirs" (click)="confirm()">选择</button>
-                        <button *ngIf="i == selectIndex.theirs" (click)="openSite(i, 'theirs')">查看</button>
-                    </ion-item>
-                </div>
+        </div>
+    </ion-list>
+    <ion-list *ngIf="items.theirs.length > 0">
+        <ion-list-header class="site-type">
+            参与的网站：
+        </ion-list-header>
+        <div class="site-list">
+            <div class="site-list-content" [ngStyle]="{'height.px': selectWindowHeight}">
+                <ion-item class="site-item" (click)="selectItem($event, i, 'theirs')" 
+                            [ngClass]="{'active': i == selectIndex.theirs}"
+                            *ngFor="let item of items.theirs; let i = index">
+                    <div style="max-width:55%;overflow:hidden;float: left;">/{{item.siteuser.username}}/{{item.siteuser.sitename}}</div>
+                    <button *ngIf="i == selectIndex.theirs" (click)="confirm()">选择</button>
+                    <button *ngIf="i == selectIndex.theirs" (click)="openSite(i, 'theirs')">查看</button>
+                </ion-item>
             </div>
-        </ion-list>
-        <!-- <button (click)="confirm()" [disabled]="selectIndex.mine == null && selectIndex.theirs == null" class="confirm" ion-button>确定</button> -->
-    </div>
-    <div *ngIf="platform.is('ios')">
-        <ion-list>
-            <ion-list-header>创建的网站：</ion-list-header>
-            <ion-item (click)="selectIndexiOS(i, 'mine')" *ngFor="let item of items.mine; let i = index">/{{item.username}}/{{item.sitename}}</ion-item>
-        </ion-list>
-    </div>
+        </div>
+    </ion-list>
+    <!-- <button (click)="confirm()" [disabled]="selectIndex.mine == null && selectIndex.theirs == null" class="confirm" ion-button>确定</button> -->
 </ion-content>

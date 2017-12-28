@@ -2,6 +2,7 @@
 import {Injectable} from '@angular/core';
 import {Observable}                          from 'rxjs/Observable';
 import {Http, Headers, RequestOptions}       from '@angular/http';
+import {LoadProvider}                        from '../load/load';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -19,7 +20,7 @@ export class ApiProvider {
     storage: any;
     request: Observable<any>;
 
-    constructor(public http: Http) {
+    constructor(public http: Http, public load: LoadProvider) {
         if(typeof window.localStorage == "object"){
             this.storage = window.localStorage;
         }
@@ -74,6 +75,7 @@ export class ApiProvider {
     }
 
     public post(url:string, params: object, headers: Headers, callback: Function):any {
+        this.load.createSpin();
         let optionsParams:any = {};
 
         if(headers){
@@ -85,6 +87,7 @@ export class ApiProvider {
         this.http.post(url, params, options)
         .map(res => res.json())
         .subscribe(data => {
+            this.load.removeSpin();
             callback(data);
         })
     }

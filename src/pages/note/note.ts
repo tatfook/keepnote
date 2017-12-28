@@ -14,6 +14,8 @@ import {LoginPage}                                     from '../../pages/login/l
 import {SitePage}                                      from '../../pages/site/site';
 import {ProfilePage}                                   from '../../pages/profile/profile';
 
+// import 'codemirror/mode/go/go';
+
 declare var CodeMirror;
 
 /**
@@ -113,37 +115,35 @@ export class NotePage {
             this.editorElement.value = "";
         }
 
+        let config: any = {
+            mode: 'markdown',
+            lineNumbers: true,
+            theme: "default",
+            viewportMargin: Infinity,
+            //绑定Vim
+            //keyMap:"vim",
+            //代码折叠
+            lineWrapping: true,
+            indentUnit:1,
+            smartIndent:true,
+            foldGutter: true,
+            foldOptions: {
+                rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.markdown, CodeMirror.fold.xml),
+                clearOnEnter: false,
+            },
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
+            //全屏模式
+            fullScreen:true,
+            //括号匹配
+            matchBrackets: true,
+            // lint: true,
+        };
+
         if(this.platform.is("ios")){
-            this.editorElement.style.width         = "100%";
-            this.editorElement.style.height        = "100%";
-            this.editorElement.style.border        = "0px";
-            this.editorElement.style.borderRadius  = "0px";
-            this.editorElement.style.paddingTop    = "20px";
-        }else{
-            this.editor = CodeMirror.fromTextArea(this.editorElement, {
-                mode: 'markdown',
-                lineNumbers: true,
-                theme: "default",
-                viewportMargin: Infinity,
-                //绑定Vim
-                //keyMap:"vim",
-                //代码折叠
-                lineWrapping: true,
-                indentUnit:1,
-                smartIndent:true,
-                foldGutter: true,
-                foldOptions: {
-                    rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.markdown, CodeMirror.fold.xml),
-                    clearOnEnter: false,
-                },
-                gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
-                //全屏模式
-                fullScreen:true,
-                //括号匹配
-                matchBrackets: true,
-                // lint: true,
-            });
+            config.inputStyles = "textarea";
         }
+
+        this.editor = CodeMirror.fromTextArea(this.editorElement, config);
     }
 
     profile(){

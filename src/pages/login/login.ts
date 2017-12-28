@@ -1,6 +1,7 @@
 import {Component}                           from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SitePage}                            from '../site/site';
+
 import {ApiProvider}                         from '../../providers/api/api';
 
 /**
@@ -23,11 +24,10 @@ export class LoginPage {
     password : string;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private apiProvide: ApiProvider) {
-        //this.abc = navParams.get("abc");
     }
 
     ionViewDidLoad() {
-        //console.log('ionViewDidLoad LoginPage');
+        
     }
 
     login(){

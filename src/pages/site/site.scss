@@ -21,6 +21,7 @@ page-site {
             background-color: transparent!important;
             margin-bottom: 7px!important;
             padding-left: 0px!important;
+            border-bottom: none!important;
         }
 
         ion-list:first-child{
@@ -53,7 +54,7 @@ page-site {
                     border-radius: 15px;
                 }
 
-                ion-item.item-md.item-block.active{
+                ion-item.active{
                     // position: absolute;
                     // left: -2.5%;
                     background-color: #44a1ff;
@@ -65,24 +66,24 @@ page-site {
                     box-shadow: rgba(68, 142, 216, 0.43) 5px 5px 10px 0px;
                 }
 
-                ion-item.item-md.item-block.active .item-inner{
+                ion-item.active .item-inner{
                     color: #ffffff;
                     border: none;
                 }
 
-                ion-item.item-md.item-block{
+                ion-item{
                     background: unset;
                     height: 50px;
                 }
 
-                ion-item.item-md.item-block .item-inner{
+                ion-item .item-inner{
                     padding: 0 20px;
                     color: #666666;
                     border-bottom: 1px solid #dbecff;
                     font-family: "Microsoft YaHei", "Roboto", "Helvetica Neue", sans-serif;
                 }
 
-                ion-item.item-md.item-block .item-inner button{
+                ion-item button{
                     float: right;
                     height: 20px;
                     background: none;
@@ -91,7 +92,7 @@ page-site {
                     border-radius: 10px;
                 }
 
-                ion-item.item-md.item-block .item-inner button:first-child{
+                ion-item button:first-child{
                     margin-left: 10px;
                 }
 

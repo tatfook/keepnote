@@ -10,7 +10,7 @@ if [ -z $device ]; then
 fi
 
 if [ "$device" == "ios" ]; then
-    ionic cordova emulate ios -lc --target iPhone-8
+    sudo ionic cordova emulate ios -lc --target iPhone-8
 elif [ "$device" == "android" ]; then
     dir=`which adb`
     android=${dir/platform-tools\/adb/}tools/android

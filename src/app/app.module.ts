@@ -22,9 +22,11 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {FileChooser}  from '@ionic-native/file-chooser';
 import {FileOpener}   from '@ionic-native/file-opener';
 import {NativeAudio}  from '@ionic-native/native-audio';
+// import {CodemirrorModule} from 'ng2-codemirror';
 
-//import {HttpClient}   from '@angular/common/http';
+import {HttpClient}   from '@angular/common/http';
 import {ApiProvider}  from '../providers/api/api';
+import { LoadProvider } from '../providers/load/load';
 
 @NgModule({
     declarations: [
@@ -68,8 +70,9 @@ import {ApiProvider}  from '../providers/api/api';
         FileChooser,
         FileOpener,
         NativeAudio,
-        //HttpClient,
-        ApiProvider
+        HttpClient,
+        ApiProvider,
+    LoadProvider,
     ]
 })
 
