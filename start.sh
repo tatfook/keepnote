@@ -24,6 +24,8 @@ elif [ "$device" == "web" ]; then
     ionic serve
 elif [ "$device" == "list" ]; then
     ionic cordova emulate --list
+elif [ "$device" == "build" ]; then
+    sudo ionic cordova build ios
 else
     echo "not found!"
 fi

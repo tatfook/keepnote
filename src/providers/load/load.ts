@@ -32,11 +32,14 @@ export class LoadProvider {
         position: 'absolute' // Element positioning
     };
     load: any = null;
+    task: any = [];
 
     constructor() {
     }
 
     createSpin(){
+        this.task.push("loading");
+
         if(this.load == null){
             this.load = document.createElement("div");
 
@@ -53,8 +56,9 @@ export class LoadProvider {
     }
 
     removeSpin(){
-        console.log(this.load);
-        if(this.load != null){
+        this.task.pop();
+
+        if(this.load != null && this.task.length == 0){
             this.load.remove();
             this.load = null;
         }

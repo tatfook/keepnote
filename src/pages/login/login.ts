@@ -1,5 +1,5 @@
 import {Component}                           from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import {SitePage}                            from '../site/site';
 
 import {ApiProvider}                         from '../../providers/api/api';
@@ -23,7 +23,8 @@ export class LoginPage {
     username : string;
     password : string;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private apiProvide: ApiProvider) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private apiProvide: ApiProvider,
+                public alertCtrl: AlertController) {
     }
 
     ionViewDidLoad() {
@@ -32,7 +33,14 @@ export class LoginPage {
 
     login(){
         if(!this.username || !this.password){
-            alert("用户名密码必填");
+            let alert = this.alertCtrl.create({
+                title: '登录错误',
+                subTitle: '用户名密码必填',
+                buttons: ['确定']
+            });
+
+            alert.present();
+
             return;
         }
 
@@ -57,6 +65,14 @@ export class LoginPage {
     }
 
     reg(){
-        alert("此功能正在开发中...");
+        let alert = this.alertCtrl.create({
+            title: '提示',
+            subTitle: '此功能正在开发中...',
+            buttons: ['确定']
+        });
+
+        alert.present();
+
+        return;
     }
 }
