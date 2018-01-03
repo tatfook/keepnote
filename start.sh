@@ -10,7 +10,7 @@ if [ -z $device ]; then
 fi
 
 if [ "$device" == "ios" ]; then
-    sudo ionic cordova emulate ios -lc --target="iPhone-8"
+    ionic cordova emulate ios -lc --target iPhone-8
 elif [ "$device" == "android" ]; then
     dir=`which adb`
     android=${dir/platform-tools\/adb/}tools/android
@@ -25,7 +25,8 @@ elif [ "$device" == "web" ]; then
 elif [ "$device" == "list" ]; then
     ionic cordova emulate --list
 elif [ "$device" == "build" ]; then
-    sudo ionic cordova build ios
+    open ./platforms/ios/build/emulator
+    ionic cordova build ios
 else
     echo "not found!"
 fi

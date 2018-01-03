@@ -8,13 +8,13 @@ import {FileChooser}                                   from '@ionic-native/file-
 import {FileOpener}                                    from '@ionic-native/file-opener';
 import {NativeAudio}                                   from '@ionic-native/native-audio';
 import {Headers}                                       from '@angular/http';
+import {Media, MediaObject}                            from '@ionic-native/media';
+import {File}                                          from '@ionic-native/file';
 
 import {ApiProvider}                                   from '../../providers/api/api';
 import {LoginPage}                                     from '../../pages/login/login';
 import {SitePage}                                      from '../../pages/site/site';
 import {ProfilePage}                                   from '../../pages/profile/profile';
-
-// import 'codemirror/mode/go/go';
 
 declare var CodeMirror;
 
@@ -36,11 +36,12 @@ export class NotePage {
     content: object = {};
     editorElement: HTMLTextAreaElement;
     editor: any = {};
+    audio: MediaObject;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera,
                 public platform: Platform, public keyboard: Keyboard, public apiProvider: ApiProvider,
                 public fileChooser: FileChooser, public nativeAudio: NativeAudio, public alertCtrl: AlertController,
-                public inAppBrowser: InAppBrowser) {
+                public inAppBrowser: InAppBrowser, public media: Media, public file: File,) {
 
         //let iab = this.inAppBrowser;
 
@@ -231,8 +232,84 @@ export class NotePage {
     }
 
     record(){
-        //this.nativeAudio
-        alert("功能开发中");
+        let fileName;
+        let filePath;
+        let audioList: any[] = [];
+        let recording;
+
+        function startRecord(){
+            if (this.platform.is('ios')) {
+                fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
+                filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + fileName;
+                
+                console.log(fileName);
+                console.log(filePath);
+                this.audio = this.media.create(filePath);
+            } else if (this.platform.is('android')) {
+                fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
+                filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + fileName;
+                
+                console.log(fileName);
+                console.log(filePath);
+                this.audio = this.media.create(filePath);
+            }
+    
+            this.audio.startRecord();
+            recording = true;
+        }
+
+        function stopRecord(){
+            this.audio.stopRecord();
+            let data = { filename: fileName };
+            audioList.push(data);
+            
+            localStorage.setItem("audiolist", JSON.stringify(audioList));
+            
+            getAudioList();
+            recording = false;
+        }
+
+        function playAudio() {
+            if (this.platform.is('ios')) {
+                // filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+                this.audio = this.media.create(filePath);
+            } else if (this.platform.is('android')) {
+                // filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+                this.audio = this.media.create(filePath);
+            }
+
+            this.audio.play();
+            this.audio.setVolume(0.8);
+        }
+
+        function getAudioList() {
+            if(localStorage.getItem("audiolist")) {
+                audioList = JSON.parse(localStorage.getItem("audiolist"));
+                console.log(audioList);
+            }
+        }
+
+        startRecord.call(this);
+
+        setTimeout(() => {
+            stopRecord.call(this);
+            setTimeout(() => {
+                playAudio.call(this);
+            }, 1000)
+
+            setTimeout(() => {
+                playAudio.call(this);
+            }, 7000)
+
+            setTimeout(() => {
+                playAudio.call(this);
+            }, 12000)
+
+            setTimeout(() => {
+                playAudio.call(this);
+            }, 17000)
+            
+        },5000);
     }
 
     files(){
